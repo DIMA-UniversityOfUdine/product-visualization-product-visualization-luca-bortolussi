@@ -25,9 +25,9 @@ loader.load( './app/obj/trunk.stl', function ( geometry ) {
   // var material = new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 200 } );
   let material = new THREE.MeshBasicMaterial( { color: 'brown' } );
   let mesh = new THREE.Mesh( geometry, material );
-  mesh.position.set( 2, 0, 0 );
-  // mesh.rotation.set( 0, - Math.PI / 2, 0 );
-  mesh.scale.set( 0.2, 0.2, 0.2 );
+  mesh.position.set( 200, 0, 0 );
+  // // mesh.rotation.set( 0, - Math.PI / 2, 0 );
+  // mesh.scale.set( 0.2, 0.2, 0.2 );
   // mesh.castShadow = true;
   // mesh.receiveShadow = true;
   scene.add( mesh );
@@ -37,9 +37,9 @@ loader.load( './app/obj/base.stl', function ( geometry ) {
   // var material = new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 200 } );
   let material = new THREE.MeshBasicMaterial( { color: "yellow" } );
   let mesh = new THREE.Mesh( geometry, material );
-  mesh.position.set( -4,0, 0 );
-  // mesh.rotation.set( 0, - Math.PI / 2, 0 );
-  mesh.scale.set( 0.1, 0.1, 0.1 );
+  mesh.position.set( -200,0, 0 );
+  mesh.rotation.set( - Math.PI / 2, 0, 0 );
+  // mesh.scale.set( 0.1, 0.1, 0.1 );
   // mesh.castShadow = true;
   // mesh.receiveShadow = true;
   scene.add( mesh );
@@ -49,15 +49,21 @@ loader.load( './app/obj/fruit.stl', function ( geometry ) {
   // var material = new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 200 } );
   let material = new THREE.MeshBasicMaterial( { color: "red" } );
   let mesh = new THREE.Mesh( geometry, material );
-  mesh.position.set( -4,0, 0 );
+  mesh.position.set( 0,200, 0 );
   // mesh.rotation.set( 0, - Math.PI / 2, 0 );
-  mesh.scale.set( .5, .5, .5 );
+  // mesh.scale.set( .5, .5, .5 );
   // mesh.castShadow = true;
   // mesh.receiveShadow = true;
   scene.add( mesh );
 } );
 
-camera.position.z = 20;
+camera.position.z = 500;
+
+var controls;
+controls = new THREE.OrbitControls( camera, renderer.domElement );
+controls.enableDamping = true;
+controls.dampingFactor = 0.25;
+controls.rotateSpeed = 0.35;
 
 var render = function () {
   requestAnimationFrame( render );
