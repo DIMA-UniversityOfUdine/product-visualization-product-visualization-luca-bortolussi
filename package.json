@@ -1,0 +1,22 @@
+{
+  "name": "product-visualization",
+  "version": "1.0.0",
+  "description": "University exam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DIMA-UniversityOfUdine/product-visualization-product-visualization-luca-bortolussi.git"
+  },
+  "author": "Luca Bortolussi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DIMA-UniversityOfUdine/product-visualization-product-visualization-luca-bortolussi/issues"
+  },
+  "homepage": "https://github.com/DIMA-UniversityOfUdine/product-visualization-product-visualization-luca-bortolussi#readme",
+  "devDependencies": {
+    "three": "^0.85.2"
+  }
+}
