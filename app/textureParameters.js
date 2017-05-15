@@ -1,5 +1,5 @@
 var textureParameters = {
-  material: "Wood_StaggeredFloorPlanks",
+  material: "wood_mahogany",
   repeatS: 1.0,
   repeatT: 1.0,
 }
