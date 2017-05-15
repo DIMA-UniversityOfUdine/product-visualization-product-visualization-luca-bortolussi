@@ -59,4 +59,5 @@ void main() {
   vec3 outRadiance = PI* clight * nDotl * BRDF;
   // gamma encode the final value
   gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
+  // gl_FragColor = vec4(0.4, 0.4, 0.6, 1.0);
 }
