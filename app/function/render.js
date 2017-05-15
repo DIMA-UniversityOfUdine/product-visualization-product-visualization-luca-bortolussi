@@ -4,7 +4,7 @@ import camera from '../threeComponent/camera'
 
 export default function render() {
   // updateUniforms();
-  requestAnimationFrame(render);
   renderer.render( scene, camera );
+  requestAnimationFrame(render);
 
 }
