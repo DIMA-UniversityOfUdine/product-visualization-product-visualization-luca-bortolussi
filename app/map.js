@@ -1,10 +1,10 @@
-import textureParameters from './textureParameters'
-import loadTexture from './loader/loadTexture'
+import textureParameters from './textureParameters';
+import loadTexture from './loader/loadTexture';
 
 const map = {
-  diffusive: loadTexture( "app/textures/" + textureParameters.material + "_Diffuse.png" ),
-  specular: loadTexture( "app/textures/" + textureParameters.material + "_Specular.png" ),
-  roughness: loadTexture( "app/textures/" + textureParameters.material + "_Roughness.png" ),
-}
+  diffusive:  loadTexture('app/textures/wood_mahogany_Diffuse.png'),
+  specular:   loadTexture('app/textures/wood_mahogany_Specular.png'),
+  roughness:  loadTexture('app/textures/wood_mahogany_Roughness.png'),
+};
 
 export default map;

@@ -12,7 +12,7 @@ export default function loadVert() {
     },
     // Function called when download progresses
     (xhr) => {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded vert');
     },
     // Function called when download errors
     (xhr) => {

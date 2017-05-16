@@ -9,21 +9,29 @@ import controls from './threeComponent/controls'
 import render from './function/render';
 
 import loadFBXL from './loader/loadFBXL';
+import loadFrag from './loader/loadFrag';
+import loadVert from './loader/loadVert';
+import loadTexture from './loader/loadTexture';
 
 const THREE = require('three');
 
+let vs = loadVert();
+let fs = loadFrag();
+if (vs!=null & fs!=null) {
+  loadFBXL(vs, fs)
+}
+
 /*  ---------SHADERS LOADER-------------  */
 function init() {
-  const object = loadFBXL();
   const lightMesh = LightMesh();
   scene.add(lightMesh);
-  scene.add(camera)
 
-  uniforms.pointLightPosition.value = new THREE.Vector3(
-    lightMesh.position.x,
-    lightMesh.position.y,
-    lightMesh.position.z
-  );
+
+  // uniforms.pointLightPosition.value = new THREE.Vector3(
+  //   lightMesh.position.x,
+  //   lightMesh.position.y,
+  //   lightMesh.position.z
+  // );
 
   document.body.appendChild(renderer.domElement);
 
