@@ -1,6 +1,7 @@
 //  IMPORT
 import uniforms from '../uniforms';
 import scene from '../threeComponent/scene';
+import material from '../const/material'
 // REQUIRE
 const THREE = require('three');
 
@@ -16,8 +17,8 @@ export default function loadFBXL(vs, fs) {
       console.log(child.name);
       child.material = new THREE.ShaderMaterial({
         uniforms: uniforms,
-        vertexShader: vs,
-        fragmentShader: fs,
+        vertexShader: material.vs,
+        fragmentShader: material.fs,
       });
     });
     scene.add(object);

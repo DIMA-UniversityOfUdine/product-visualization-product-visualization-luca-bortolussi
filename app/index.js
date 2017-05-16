@@ -13,13 +13,33 @@ import loadFrag from './loader/loadFrag';
 import loadVert from './loader/loadVert';
 import loadTexture from './loader/loadTexture';
 
+import material from './const/material';
+
 const THREE = require('three');
 
-let vs = loadVert();
-let fs = loadFrag();
-if (vs!=null & fs!=null) {
-  loadFBXL(vs, fs)
-}
+loadVert();
+loadFrag();
+// loadFBXL(vs, fs)
+
+
+THREE.DefaultLoadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+  console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+};
+
+THREE.DefaultLoadingManager.onLoad = function ( ) {
+  console.log( 'Loading Complete!');
+};
+
+THREE.DefaultLoadingManager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+  console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+  console.log(material.vs);
+  console.log(material.fs);
+};
+
+THREE.DefaultLoadingManager.onError = function ( url ) {
+  console.log( 'There was an error loading ' + url );
+};
+
 
 /*  ---------SHADERS LOADER-------------  */
 function init() {

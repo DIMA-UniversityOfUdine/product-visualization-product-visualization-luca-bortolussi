@@ -10,6 +10,7 @@ export default function loadTexture(file) {
     file,
     (tex) => {
       texture = tex;
+      console.log(texture);;
     },
     // Function called when download progresses
     (xhr) => {

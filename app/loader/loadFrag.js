@@ -1,15 +1,15 @@
+import material from '../const/material';
+
 // REQUIRE
 const THREE = require('three');
 
 //   FRAGMENT SHADER LOADER
 export default function loadFrag() {
-  let fs;
   const loader = new THREE.FileLoader();
   loader.load(
-    './app/shaders/index.vert',
+    './app/shaders/index.frag',
     (data) => {
-      fs = data;
-      console.log(fs);
+      material.fs = data;
     },
     // Function called when download progresses
     (xhr) => {
@@ -19,5 +19,4 @@ export default function loadFrag() {
     (xhr) => {
       console.error('An error happened');
     });
-  return fs;
 }
