@@ -1,5 +1,5 @@
 //  IMPORT
-import scene from '../threeComponent/scene';
+import { scene } from '../index';
 import material from '../const/material';
 // REQUIRE
 const THREE = require('three');
@@ -8,9 +8,8 @@ window.THREE = THREE;
 require('../lib/FBXLoader.js');
 
 //  FBXL LOADER
-export default function loadFBXL(vs, fs) {
+export default function loadFBXL() {
   const ObjLoader = new THREE.FBXLoader();
-  let objz;
   ObjLoader.load('./app/obj/plane.fbx', (object) => {
     object.traverse((child) => {
       console.log(child.name);
