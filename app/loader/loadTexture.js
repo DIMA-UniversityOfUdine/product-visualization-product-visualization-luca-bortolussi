@@ -1,16 +1,14 @@
-import renderer from '../threeComponent/renderer';
+import material from '../const/material';
 
 const THREE = require('three');
 
 // LOAD TEXTURE
-export default function loadTexture(file) {
-  let texture;
+export default function loadTexture(type, file) {
   const loader = new THREE.TextureLoader();
   loader.load(
     file,
     (tex) => {
-      texture = tex;
-      console.log(texture);;
+      material.uniforms[type] = tex;
     },
     // Function called when download progresses
     (xhr) => {
@@ -18,7 +16,6 @@ export default function loadTexture(file) {
     },
     // Function called when download errors
     (xhr) => {
-      console.log( 'An error happened' );
+      console.log('An error happened');
     });
-  return (texture);
 }

@@ -1,5 +1,3 @@
-import uniforms from './uniforms';
-
 import scene from './threeComponent/scene';
 import camera from './threeComponent/camera';
 import renderer from './threeComponent/renderer';
@@ -20,7 +18,9 @@ const THREE = require('three');
 loadVert();
 loadFrag();
 // loadFBXL(vs, fs)
-
+loadTexture('specularMap', 'app/textures/wood_mahogany_Specular.png');
+loadTexture('diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
+loadTexture('roughnessMap', 'app/textures/wood_mahogany_Roughness.png');
 
 THREE.DefaultLoadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
   console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
@@ -34,6 +34,9 @@ THREE.DefaultLoadingManager.onProgress = function ( url, itemsLoaded, itemsTotal
   console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
   console.log(material.vs);
   console.log(material.fs);
+  console.log(material.uniforms.specularMap);
+  console.log(material.uniforms.diffuseMap);
+  console.log(material.uniforms.roughnessMap);
 };
 
 THREE.DefaultLoadingManager.onError = function ( url ) {
