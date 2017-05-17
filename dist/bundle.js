@@ -43763,12 +43763,12 @@ const material = {
     specularMap: { type: 't', value: null },
     diffuseMap: { type: 't', value: null },
     roughnessMap: { type: 't', value: null },
-    pointLightPosition: { type: 'v3', value: new THREE.Vector3(7, 7, 7) },
-    clight: { type: 'v3', value: new THREE.Vector3(1, 0.5, 0.5) },
+    pointLightPosition: { type: 'v3', value: new THREE.Vector3(7.0, 7.0, 7.0) },
+    clight: { type: 'v3', value: new THREE.Vector3(1, 1, 1) },
     textureRepeat: { type: 'v2', value: new THREE.Vector2(1, 1) },
   },
 };
-
+// MATEIALE UTILIZZABILE CON IL SECONDO SHADER OVVERO SECOND.FRAG
 // const material = {
 //   vs: null,
 //   fs: null,
@@ -43790,7 +43790,9 @@ const material = {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "manager", function() { return manager; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shaderMaterial", function() { return shaderMaterial; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scene", function() { return scene; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loader_loadVert__ = __webpack_require__(7);
@@ -43836,6 +43838,8 @@ scene.add(lightMesh);
 
 document.body.appendChild(renderer.domElement);
 
+let shaderMaterial = '';
+
 // DEFAULT LOADING MANAGAER
 THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
   console.log(`Started loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
@@ -43861,11 +43865,20 @@ manager.onStart = (url, itemsLoaded, itemsTotal) => {
 };
 manager.onLoad = () => {
   console.log('finito il MANAGAER');
+  console.log(__WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */]);
+  console.log(__WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */].diffuseMap);
+  shaderMaterial = new THREE.ShaderMaterial({
+    uniforms: __WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */].uniforms,
+    vertexShader: __WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */].vs,
+    fragmentShader: __WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */].fs,
+  });
+  // loadFBXL();
+  var geometry = new THREE.SphereBufferGeometry(2, 32, 32);
+  var mesh = new THREE.Mesh(geometry, shaderMaterial);
+  scene.add(mesh);
 };
 manager.onProgress = (url, itemsLoaded, itemsTotal) => {
   console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
-  console.log('il manager sta lavorando');
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__loader_loadFBXL__["a" /* default */])();
 };
 manager.onError = (url) => {
   console.log(`There was an error loading  ${url}`);
@@ -44915,7 +44928,7 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = loadFBXL;
+/* unused harmony export default */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_material__ = __webpack_require__(1);
 //  IMPORT
@@ -44929,17 +44942,30 @@ __webpack_require__(8);
 
 //  FBXL LOADER
 function loadFBXL() {
-  const ObjLoader = new THREE.FBXLoader();
-  ObjLoader.load('./app/obj/plane.fbx', (object) => {
-    object.traverse((child) => {
-      console.log(child.name);
-      child.material = new THREE.ShaderMaterial({
-        uniforms: __WEBPACK_IMPORTED_MODULE_1__const_material__["a" /* default */].uniforms,
-        vertexShader: __WEBPACK_IMPORTED_MODULE_1__const_material__["a" /* default */].vs,
-        fragmentShader: __WEBPACK_IMPORTED_MODULE_1__const_material__["a" /* default */].fs,
-      });
-    });
-    __WEBPACK_IMPORTED_MODULE_0__index__["scene"].add(object);
+  const loader = new THREE.FBXLoader();
+  loader.load('./app/obj/plane.fbx', (object) => {
+    for (let i = 0; i < object.children.length; i++) {
+      if (object.children[i].geometry) {
+        let geometry = object.children[i].geometry;
+        geometry.center();
+        let mesh = new THREE.Mesh(geometry, __WEBPACK_IMPORTED_MODULE_0__index__["shaderMaterial"]);
+        __WEBPACK_IMPORTED_MODULE_0__index__["scene"].add(mesh);
+      }
+    }
+
+
+    // object.traverse((child) => {
+    //   if (child instanceof THREE.Mesh) {
+    //     child.material = new THREE.ShaderMaterial({
+    //       uniforms: material.uniforms,
+    //       vertexShader: material.vs,
+    //       fragmentShader: material.fs,
+    //     });
+    //   }
+    // });
+    // scene.add(object);
+
+
   });
 }
 
@@ -44962,7 +44988,7 @@ const THREE = __webpack_require__(0);
 function loadFrag() {
   const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_1__index__["manager"]);
   loader.load(
-    './app/shaders/second.frag',
+    './app/shaders/index.frag',
     (data) => {
       __WEBPACK_IMPORTED_MODULE_0__const_material__["a" /* default */].fs = data.toString();
     },
@@ -44995,8 +45021,12 @@ function loadTexture(type, file) {
   const loader = new THREE.TextureLoader(__WEBPACK_IMPORTED_MODULE_1__index__["manager"]);
   loader.load(
     file,
-    (tex) => {
-      __WEBPACK_IMPORTED_MODULE_0__const_material__["a" /* default */].uniforms[type] = tex.toString();
+    (texture) => {
+      texture.minFilter = THREE.LinearMipMapLinearFilter;
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.offset.set(0, 0);
+      texture.needsUpdate = true;
+      __WEBPACK_IMPORTED_MODULE_0__const_material__["a" /* default */].uniforms[type] = texture.toString();
     },
     // Function called when download progresses
     (xhr) => {
