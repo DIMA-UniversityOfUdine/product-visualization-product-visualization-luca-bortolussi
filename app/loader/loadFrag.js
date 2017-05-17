@@ -1,16 +1,30 @@
-import material from '../const/material';
+import wood from '../const/wood';
+import metal from '../const/metal';
+import lambert from '../const/lambert';
 import { manager } from '../index';
 
 // REQUIRE
 const THREE = require('three');
 
 //   FRAGMENT SHADER LOADER
-export default function loadFrag() {
-  const loader = new THREE.FileLoader(manager);
+export default function loadFrag(file) {
+  const loader = new THREE.FileLoader(manager, file);
   loader.load(
-    './app/shaders/index.frag',
+    `./app/shaders/${file}.frag`,
     (data) => {
-      material.fs = data.toString();
+      switch (file) {
+        case 'woodShader':
+          wood.fs = data.toString();
+          break;
+        case 'metalShader':
+          metal.fs = data.toString();
+          break;
+        case 'lambertShader':
+          lambert.fs = data.toString();
+          break;
+        default:
+          return (null);
+      }
     },
     // Function called when download progresses
     (xhr) => {

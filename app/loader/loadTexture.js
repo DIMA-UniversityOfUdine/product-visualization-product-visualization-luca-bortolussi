@@ -1,4 +1,4 @@
-import material from '../const/material';
+import wood from '../const/wood';
 import { manager } from '../index';
 
 const THREE = require('three');
@@ -13,7 +13,7 @@ export default function loadTexture(type, file) {
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
       texture.offset.set( 0, 0 );
       texture.needsUpdate = true;
-      material.uniforms[type].value = texture;
+      wood.uniforms[type].value = texture;
     },
     // Function called when download progresses
     (xhr) => {

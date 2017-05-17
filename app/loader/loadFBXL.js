@@ -1,6 +1,6 @@
 //  IMPORT
-import { shaderMaterial, scene } from '../index';
-import material from '../const/material';
+import { woodMaterial, metalMaterial, lambertMaterial, scene } from '../index';
+import wood from '../const/wood';
 // REQUIRE
 const THREE = require('three');
 
@@ -12,16 +12,30 @@ export default function loadFBXL() {
   const loader = new THREE.FBXLoader();
   loader.load('./app/obj/plane.fbx', (object) => {
     object.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.material = new THREE.ShaderMaterial({
-          vertexShader: material.vs,
-          fragmentShader: material.fs,
-          uniforms: material.uniforms,
-        });
+      console.log(child.name);
+      switch (child.name) {
+        case 'Object002':
+          child.material = metalMaterial;
+          break;
+        case 'Box333':
+          child.material = metalMaterial;
+          break;
+        case 'Cylinder182':
+          child.material = metalMaterial;
+          break;
+        case 'Cylinder183':
+          child.material = metalMaterial;
+          break;
+        case 'Cylinder184':
+          child.material = metalMaterial;
+          break;
+        case 'Object001':
+          child.material = lambertMaterial;
+          break;
+        default:
+          child.material = woodMaterial;
       }
     });
     scene.add(object);
-
-
   });
 }

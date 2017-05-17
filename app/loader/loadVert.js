@@ -1,4 +1,6 @@
-import material from '../const/material';
+import wood from '../const/wood';
+import metal from '../const/metal';
+import lambert from '../const/lambert';
 import { manager } from '../index';
 
 //  REQUIRE
@@ -11,7 +13,9 @@ export default function loadVert() {
   loader.load(
     'app/shaders/index.vert',
     (data) => {
-      material.vs = data.toString();
+      wood.vs = data;
+      metal.vs = data;
+      lambert.vs = data;
     },
     // Function called when download progresses
     (xhr) => {

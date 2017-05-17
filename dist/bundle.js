@@ -43756,32 +43756,20 @@ function CanvasRenderer() {
 "use strict";
 const THREE = __webpack_require__(0);
 
-const material = {
+const wood = {
   vs: null,
   fs: null,
   uniforms: {
-    specularMap: { type: 't', value: null },
-    diffuseMap: { type: 't', value: null },
-    roughnessMap: { type: 't', value: null },
-    pointLightPosition: { type: 'v3', value: new THREE.Vector3(7.0, 7.0, 7.0) },
+    specularMap: { type: 't', value: {} },
+    diffuseMap: { type: 't', value: {} },
+    roughnessMap: { type: 't', value: {} },
+    pointLightPosition: { type: 'v3', value: new THREE.Vector3(3, 7, 15) },
     clight: { type: 'v3', value: new THREE.Vector3(1, 1, 1) },
     textureRepeat: { type: 'v2', value: new THREE.Vector2(1, 1) },
   },
 };
-// MATEIALE UTILIZZABILE CON IL SECONDO SHADER OVVERO SECOND.FRAG
-// const material = {
-//   vs: null,
-//   fs: null,
-//   uniforms: {
-//     cspec: { type: 'v3', value: new THREE.Vector3(0.4, 0.4, 0.3) },
-//     cdiff: { type: 'v3', value: new THREE.Vector3(0.7, 0.0, 0.0) },
-//     roughness: { type: 'f', value: 0.5 },
-//     pointLightPosition: { type: 'v3', value: new THREE.Vector3(7.0, 7.0, 7.0) },
-//     clight: { type: 'v3', value: new THREE.Vector3(0.5, 0.5, 0.5) },
-//   },
-// };
 
-/* harmony default export */ __webpack_exports__["a"] = (material);
+/* harmony default export */ __webpack_exports__["a"] = (wood);
 
 
 /***/ }),
@@ -43792,15 +43780,21 @@ const material = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "manager", function() { return manager; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shaderMaterial", function() { return shaderMaterial; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "woodMaterial", function() { return woodMaterial; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "metalMaterial", function() { return metalMaterial; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lambertMaterial", function() { return lambertMaterial; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scene", function() { return scene; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loader_loadVert__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loader_loadFBXL__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__const_material__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loader_loadVert__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loader_loadFBXL__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__const_wood__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__const_metal__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__const_lambert__ = __webpack_require__(3);
 /*  global window document requestAnimationFrame :true  */
 /*  eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
+
+
 
 
 
@@ -43811,34 +43805,128 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 const THREE = __webpack_require__(0);
 
 window.THREE = THREE;
-__webpack_require__(3);
+__webpack_require__(5);
+
+const portfolioThumb = document.getElementsByClassName('portfolio-thumb');
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+const camera0 = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 1000);
+const camera1 = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 1000);
+const camera2 = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 1000);
+const camera3 = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 1000);
+const camera4 = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 1000);
+const camera5 = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 1000);
+
+const renderer0 = new THREE.WebGLRenderer();
+const renderer1 = new THREE.WebGLRenderer();
+const renderer2 = new THREE.WebGLRenderer();
+const renderer3 = new THREE.WebGLRenderer();
+const renderer4 = new THREE.WebGLRenderer();
+const renderer5 = new THREE.WebGLRenderer();
+
+const controls0 = new THREE.OrbitControls(camera0, renderer0.domElement);
+const controls1 = new THREE.OrbitControls(camera1, renderer1.domElement);
+const controls2 = new THREE.OrbitControls(camera2, renderer2.domElement);
+const controls3 = new THREE.OrbitControls(camera3, renderer3.domElement);
+const controls4 = new THREE.OrbitControls(camera4, renderer4.domElement);
+const controls5 = new THREE.OrbitControls(camera5, renderer5.domElement);
+
+function rand() {
+  const number = Math.floor((Math.random() * 30) - 15);
+  return (number);
+}
+
 //  CAMERA
-camera.position.z = 20;
+camera0.position.set(rand(), rand(), 20);
+camera0.lookAt(new THREE.Vector3(0, 0, 0));
+camera1.position.set(rand(), rand(), 20);
+camera1.lookAt(new THREE.Vector3(0, 0, 0));
+camera2.position.set(rand(), rand(), 20);
+camera2.lookAt(new THREE.Vector3(0, 0, 0));
+camera3.position.set(rand(), rand(), 20);
+camera3.lookAt(new THREE.Vector3(0, 0, 0));
+camera4.position.set(rand(), rand(), 20);
+camera4.lookAt(new THREE.Vector3(0, 0, 0));
+camera5.position.set(rand(), rand(), 20);
+camera5.lookAt(new THREE.Vector3(0, 0, 0));
 // RENDERER
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor('white');
-// CONTROLS
-controls.enableDamping = true;
-controls.dampingFactor = 0.25;
-controls.rotateSpeed = 0.35;
-// LIGHT
-const lightMesh = new THREE.Mesh(
-  new THREE.SphereGeometry(1, 16, 16),
+renderer0.setSize(300, 300);
+renderer0.setClearColor('#FAFBD4');
+renderer1.setSize(300, 300);
+renderer1.setClearColor('#DCEDC1');
+renderer2.setSize(300, 300);
+renderer2.setClearColor('#FFD3B6');
+renderer3.setSize(300, 300);
+renderer3.setClearColor('#FFAAA5');
+renderer4.setSize(300, 300);
+renderer4.setClearColor('#A8E6CF');
+renderer5.setSize(300, 300);
+renderer5.setClearColor('#9896F1');
+// CONTROLS0
+controls0.enableDamping = true;
+controls0.dampingFactor = 0.25;
+controls0.rotateSpeed = 0.35;
+controls1.enableDamping = true;
+controls1.dampingFactor = 0.25;
+controls1.rotateSpeed = 0.35;
+controls2.enableDamping = true;
+controls2.dampingFactor = 0.25;
+controls2.rotateSpeed = 0.35;
+controls3.enableDamping = true;
+controls3.dampingFactor = 0.25;
+controls3.rotateSpeed = 0.35;
+controls4.enableDamping = true;
+controls4.dampingFactor = 0.25;
+controls4.rotateSpeed = 0.35;
+controls5.enableDamping = true;
+controls5.dampingFactor = 0.25;
+controls5.rotateSpeed = 0.35;
+
+// FRONT LIGHT
+const frontLight = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 10, 10),
   new THREE.MeshBasicMaterial({
     color: 0xffff00,
     wireframe: true,
   }));
-lightMesh.position.set(7.0, 7.0, 7.0);
-scene.add(lightMesh);
+frontLight.position.set(3, 7, 15);
+scene.add(frontLight);
+// FILL LIGHT
+const fillLight = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 10, 10),
+  new THREE.MeshBasicMaterial({
+    color: 0xffff00,
+    wireframe: true,
+  }));
+fillLight.position.set(-11, 3, 1);
+scene.add(fillLight);
+// BACK LIGHT
+const backLight = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 10, 10),
+  new THREE.MeshBasicMaterial({
+    color: 0xffff00,
+    wireframe: true,
+  }));
+backLight.position.set(0, 8, -15);
+scene.add(backLight);
 
-document.body.appendChild(renderer.domElement);
+portfolioThumb[0].appendChild(renderer0.domElement);
+portfolioThumb[1].appendChild(renderer1.domElement);
+portfolioThumb[2].appendChild(renderer2.domElement);
+portfolioThumb[3].appendChild(renderer3.domElement);
+portfolioThumb[4].appendChild(renderer4.domElement);
+portfolioThumb[5].appendChild(renderer5.domElement);
 
-let shaderMaterial = '';
+//  MATERIAL
+let woodMaterial;
+let metalMaterial;
+let lambertMaterial;
+
+// COMPONENT
+let elica;
+
+let allLoaded= false;
 
 // DEFAULT LOADING MANAGAER
 THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
@@ -43846,13 +43934,13 @@ THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
 };
 THREE.DefaultLoadingManager.onLoad = () => {
   console.log('Loading Complete!');
+  scene.traverse((child) => {
+    if (child.name === 'Box333') {elica = child; console.log(elica);}
+  });
+  allLoaded = true;
 };
 THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
   console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
-  // console.log(material.uniforms.specularMap);
-  // console.log(material.uniforms.diffuseMap);
-  // console.log(material.uniforms.roughnessMap);
-  // console.log(scene);
 };
 THREE.DefaultLoadingManager.onError = (url) => {
   console.log(`There was an error loading  ${url}`);
@@ -43865,17 +43953,22 @@ manager.onStart = (url, itemsLoaded, itemsTotal) => {
 };
 manager.onLoad = () => {
   console.log('finito il MANAGAER');
-  console.log(__WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */]);
-  console.log(__WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */].diffuseMap);
-  shaderMaterial = new THREE.ShaderMaterial({
-    uniforms: __WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */].uniforms,
-    vertexShader: __WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */].vs,
-    fragmentShader: __WEBPACK_IMPORTED_MODULE_4__const_material__["a" /* default */].fs,
+  woodMaterial = new THREE.ShaderMaterial({
+    uniforms: __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].uniforms,
+    vertexShader: __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].vs,
+    fragmentShader: __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].fs,
   });
-  // loadFBXL();
-  var geometry = new THREE.SphereBufferGeometry(2, 32, 32);
-  var mesh = new THREE.Mesh(geometry, shaderMaterial);
-  scene.add(mesh);
+  metalMaterial = new THREE.ShaderMaterial({
+    uniforms: __WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].uniforms,
+    vertexShader: __WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].vs,
+    fragmentShader: __WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].fs,
+  });
+  lambertMaterial = new THREE.ShaderMaterial({
+    uniforms: __WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].uniforms,
+    vertexShader: __WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].vs,
+    fragmentShader: __WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].fs,
+  });
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__loader_loadFBXL__["a" /* default */])();
 };
 manager.onProgress = (url, itemsLoaded, itemsTotal) => {
   console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
@@ -43886,14 +43979,26 @@ manager.onError = (url) => {
 
 // LOADER
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__loader_loadVert__["a" /* default */])();
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__["a" /* default */])();
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__["a" /* default */])('woodShader');
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__["a" /* default */])('metalShader');
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__["a" /* default */])('lambertShader');
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('specularMap', 'app/textures/wood_mahogany_Specular.png');
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('roughnessMap', 'app/textures/wood_mahogany_Roughness.png');
 
+function update() {
+  elica.rotation.x += 0.1;
+}
+
 function render() {
+  ( allLoaded )? update() : null;
   requestAnimationFrame(render);
-  renderer.render(scene, camera);
+  renderer0.render(scene, camera0);
+  renderer1.render(scene, camera1);
+  renderer2.render(scene, camera2);
+  renderer3.render(scene, camera3);
+  renderer4.render(scene, camera4);
+  renderer5.render(scene, camera5);
 }
 
 render();
@@ -43903,6 +44008,49 @@ render();
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const THREE = __webpack_require__(0);
+
+const lambert = {
+  vs: null,
+  fs: null,
+  uniforms: {
+    cspec: { type: 'v3', value: new THREE.Vector3(0.4, 0.4, 0.4) },
+    cdiff: { type: 'v3', value: new THREE.Vector3(1, 1, 1) },
+    roughness: { type: 'f', value: 1 },
+    pointLightPosition: { type: 'v3', value: new THREE.Vector3(3, 7, 15) },
+    clight: { type: 'v3', value: new THREE.Vector3(1, 0, 0) },
+  },
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (lambert);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const THREE = __webpack_require__(0);
+
+const metal  = {
+  vs: null,
+  fs: null,
+  uniforms: {
+    cspec: { type: 'v3', value: new THREE.Vector3(1, 1, 1) },
+    roughness: { type: 'f', value: 0.5 },
+    pointLightPosition: { type: 'v3', value: new THREE.Vector3(3, 7, 15) },
+    clight: { type: 'v3', value: new THREE.Vector3(0.5, 0.5, 0.5) },
+  },
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (metal);
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports) {
 
 /**
@@ -44924,13 +45072,13 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export default */
+/* harmony export (immutable) */ __webpack_exports__["a"] = loadFBXL;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_material__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_wood__ = __webpack_require__(1);
 //  IMPORT
 
 
@@ -44938,46 +45086,54 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
 const THREE = __webpack_require__(0);
 
 window.THREE = THREE;
-__webpack_require__(8);
+__webpack_require__(10);
 
 //  FBXL LOADER
 function loadFBXL() {
   const loader = new THREE.FBXLoader();
   loader.load('./app/obj/plane.fbx', (object) => {
-    for (let i = 0; i < object.children.length; i++) {
-      if (object.children[i].geometry) {
-        let geometry = object.children[i].geometry;
-        geometry.center();
-        let mesh = new THREE.Mesh(geometry, __WEBPACK_IMPORTED_MODULE_0__index__["shaderMaterial"]);
-        __WEBPACK_IMPORTED_MODULE_0__index__["scene"].add(mesh);
+    object.traverse((child) => {
+      console.log(child.name);
+      switch (child.name) {
+        case 'Object002':
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["metalMaterial"];
+          break;
+        case 'Box333':
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["metalMaterial"];
+          break;
+        case 'Cylinder182':
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["metalMaterial"];
+          break;
+        case 'Cylinder183':
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["metalMaterial"];
+          break;
+        case 'Cylinder184':
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["metalMaterial"];
+          break;
+        case 'Object001':
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["lambertMaterial"];
+          break;
+        default:
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["woodMaterial"];
       }
-    }
-
-
-    // object.traverse((child) => {
-    //   if (child instanceof THREE.Mesh) {
-    //     child.material = new THREE.ShaderMaterial({
-    //       uniforms: material.uniforms,
-    //       vertexShader: material.vs,
-    //       fragmentShader: material.fs,
-    //     });
-    //   }
-    // });
-    // scene.add(object);
-
-
+    });
+    __WEBPACK_IMPORTED_MODULE_0__index__["scene"].add(object);
   });
 }
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = loadFrag;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_material__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_metal__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__const_lambert__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index__ = __webpack_require__(2);
+
+
 
 
 
@@ -44985,12 +45141,24 @@ function loadFBXL() {
 const THREE = __webpack_require__(0);
 
 //   FRAGMENT SHADER LOADER
-function loadFrag() {
-  const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_1__index__["manager"]);
+function loadFrag(file) {
+  const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_3__index__["manager"], file);
   loader.load(
-    './app/shaders/index.frag',
+    `./app/shaders/${file}.frag`,
     (data) => {
-      __WEBPACK_IMPORTED_MODULE_0__const_material__["a" /* default */].fs = data.toString();
+      switch (file) {
+        case 'woodShader':
+          __WEBPACK_IMPORTED_MODULE_0__const_wood__["a" /* default */].fs = data.toString();
+          break;
+        case 'metalShader':
+          __WEBPACK_IMPORTED_MODULE_1__const_metal__["a" /* default */].fs = data.toString();
+          break;
+        case 'lambertShader':
+          __WEBPACK_IMPORTED_MODULE_2__const_lambert__["a" /* default */].fs = data.toString();
+          break;
+        default:
+          return (null);
+      }
     },
     // Function called when download progresses
     (xhr) => {
@@ -45004,12 +45172,12 @@ function loadFrag() {
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = loadTexture;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_material__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(2);
 
 
@@ -45024,9 +45192,9 @@ function loadTexture(type, file) {
     (texture) => {
       texture.minFilter = THREE.LinearMipMapLinearFilter;
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-      texture.offset.set(0, 0);
+      texture.offset.set( 0, 0 );
       texture.needsUpdate = true;
-      __WEBPACK_IMPORTED_MODULE_0__const_material__["a" /* default */].uniforms[type] = texture.toString();
+      __WEBPACK_IMPORTED_MODULE_0__const_wood__["a" /* default */].uniforms[type].value = texture;
     },
     // Function called when download progresses
     (xhr) => {
@@ -45040,13 +45208,17 @@ function loadTexture(type, file) {
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = loadVert;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_material__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_metal__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__const_lambert__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index__ = __webpack_require__(2);
+
+
 
 
 
@@ -45056,11 +45228,13 @@ const THREE = __webpack_require__(0);
 
 //  VERTEX SHADERS LOADER
 function loadVert() {
-  const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_1__index__["manager"]);
+  const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_3__index__["manager"]);
   loader.load(
     'app/shaders/index.vert',
     (data) => {
-      __WEBPACK_IMPORTED_MODULE_0__const_material__["a" /* default */].vs = data.toString();
+      __WEBPACK_IMPORTED_MODULE_0__const_wood__["a" /* default */].vs = data;
+      __WEBPACK_IMPORTED_MODULE_1__const_metal__["a" /* default */].vs = data;
+      __WEBPACK_IMPORTED_MODULE_2__const_lambert__["a" /* default */].vs = data;
     },
     // Function called when download progresses
     (xhr) => {
@@ -45074,7 +45248,7 @@ function loadVert() {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /**
