@@ -1,4 +1,6 @@
 /*  global window document requestAnimationFrame :true  */
+/*  eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
+
 import loadFrag from './loader/loadFrag';
 import loadVert from './loader/loadVert';
 import loadTexture from './loader/loadTexture';
@@ -26,21 +28,16 @@ controls.rotateSpeed = 0.35;
 // LIGHT
 const lightMesh = new THREE.Mesh(
   new THREE.SphereGeometry(1, 16, 16),
-  new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true }));
+  new THREE.MeshBasicMaterial({
+    color: 0xffff00,
+    wireframe: true,
+  }));
 lightMesh.position.set(7.0, 7.0, 7.0);
 scene.add(lightMesh);
 
 document.body.appendChild(renderer.domElement);
 
-// LOADER
-loadVert();
-loadFrag();
-loadTexture('specularMap', 'app/textures/wood_mahogany_Specular.png');
-loadTexture('diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
-loadTexture('roughnessMap', 'app/textures/wood_mahogany_Roughness.png');
-loadFBXL();
-
-// LOADIN GAMANGER
+// DEFAULT LOADING MANAGAER
 THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
   console.log(`Started loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
 };
@@ -49,15 +46,38 @@ THREE.DefaultLoadingManager.onLoad = () => {
 };
 THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
   console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
-  console.log(material.uniforms.specularMap);
-  console.log(material.uniforms.diffuseMap);
-  console.log(material.uniforms.roughnessMap);
-  console.log(scene);
+  // console.log(material.uniforms.specularMap);
+  // console.log(material.uniforms.diffuseMap);
+  // console.log(material.uniforms.roughnessMap);
+  // console.log(scene);
 };
 THREE.DefaultLoadingManager.onError = (url) => {
   console.log(`There was an error loading  ${url}`);
 };
 
+// LOADING MANAGAER
+const manager = new THREE.LoadingManager();
+manager.onStart = (url, itemsLoaded, itemsTotal) => {
+  console.log(`Started loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
+};
+manager.onLoad = () => {
+  console.log('finito il MANAGAER');
+};
+manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+  console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
+  console.log('il manager sta lavorando');
+  loadFBXL();
+};
+manager.onError = (url) => {
+  console.log(`There was an error loading  ${url}`);
+};
+
+// LOADER
+loadVert();
+loadFrag();
+loadTexture('specularMap', 'app/textures/wood_mahogany_Specular.png');
+loadTexture('diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
+loadTexture('roughnessMap', 'app/textures/wood_mahogany_Roughness.png');
 
 function render() {
   requestAnimationFrame(render);
@@ -66,4 +86,4 @@ function render() {
 
 render();
 
-export default scene;
+export { manager, scene };

@@ -1,10 +1,11 @@
 import material from '../const/material';
+import { manager } from '../index';
 
 const THREE = require('three');
 
 // LOAD TEXTURE
 export default function loadTexture(type, file) {
-  const loader = new THREE.TextureLoader();
+  const loader = new THREE.TextureLoader(manager);
   loader.load(
     file,
     (tex) => {

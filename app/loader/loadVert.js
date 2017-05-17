@@ -1,4 +1,5 @@
 import material from '../const/material';
+import { manager } from '../index';
 
 //  REQUIRE
 const THREE = require('three');
@@ -6,7 +7,7 @@ const THREE = require('three');
 
 //  VERTEX SHADERS LOADER
 export default function loadVert() {
-  const loader = new THREE.FileLoader();
+  const loader = new THREE.FileLoader(manager);
   loader.load(
     'app/shaders/index.vert',
     (data) => {

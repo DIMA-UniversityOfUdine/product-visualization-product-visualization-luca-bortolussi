@@ -1,5 +1,5 @@
 //  IMPORT
-import scene from '../index';
+import { scene } from '../index';
 import material from '../const/material';
 // REQUIRE
 const THREE = require('three');
