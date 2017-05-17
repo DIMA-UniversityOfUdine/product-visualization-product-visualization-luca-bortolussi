@@ -11,9 +11,9 @@ export default function loadTexture(type, file) {
     (texture) => {
       texture.minFilter = THREE.LinearMipMapLinearFilter;
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-      texture.offset.set(0, 0);
+      texture.offset.set( 0, 0 );
       texture.needsUpdate = true;
-      material.uniforms[type] = texture.toString();
+      material.uniforms[type].value = texture;
     },
     // Function called when download progresses
     (xhr) => {
