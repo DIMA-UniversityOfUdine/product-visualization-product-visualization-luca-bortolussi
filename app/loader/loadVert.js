@@ -10,7 +10,7 @@ export default function loadVert() {
   loader.load(
     'app/shaders/index.vert',
     (data) => {
-      material.vs = data;
+      material.vs = data.toString();
     },
     // Function called when download progresses
     (xhr) => {

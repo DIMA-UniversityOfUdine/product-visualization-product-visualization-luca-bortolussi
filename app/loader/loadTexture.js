@@ -8,7 +8,7 @@ export default function loadTexture(type, file) {
   loader.load(
     file,
     (tex) => {
-      material.uniforms[type] = tex;
+      material.uniforms[type] = tex.toString();
     },
     // Function called when download progresses
     (xhr) => {

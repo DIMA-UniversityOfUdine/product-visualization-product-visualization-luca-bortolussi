@@ -7,9 +7,9 @@ const THREE = require('three');
 export default function loadFrag() {
   const loader = new THREE.FileLoader();
   loader.load(
-    './app/shaders/index.frag',
+    './app/shaders/second.frag',
     (data) => {
-      material.fs = data;
+      material.fs = data.toString();
     },
     // Function called when download progresses
     (xhr) => {
