@@ -7,12 +7,12 @@ const material = {
     specularMap: { type: 't', value: null },
     diffuseMap: { type: 't', value: null },
     roughnessMap: { type: 't', value: null },
-    pointLightPosition: { type: 'v3', value: new THREE.Vector3(7, 7, 7) },
-    clight: { type: 'v3', value: new THREE.Vector3(1, 0.5, 0.5) },
+    pointLightPosition: { type: 'v3', value: new THREE.Vector3(7.0, 7.0, 7.0) },
+    clight: { type: 'v3', value: new THREE.Vector3(1, 1, 1) },
     textureRepeat: { type: 'v2', value: new THREE.Vector2(1, 1) },
   },
 };
-
+// MATEIALE UTILIZZABILE CON IL SECONDO SHADER OVVERO SECOND.FRAG
 // const material = {
 //   vs: null,
 //   fs: null,

@@ -8,8 +8,12 @@ export default function loadTexture(type, file) {
   const loader = new THREE.TextureLoader(manager);
   loader.load(
     file,
-    (tex) => {
-      material.uniforms[type] = tex.toString();
+    (texture) => {
+      texture.minFilter = THREE.LinearMipMapLinearFilter;
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.offset.set(0, 0);
+      texture.needsUpdate = true;
+      material.uniforms[type] = texture.toString();
     },
     // Function called when download progresses
     (xhr) => {

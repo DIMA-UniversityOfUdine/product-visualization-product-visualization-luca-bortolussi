@@ -37,6 +37,8 @@ scene.add(lightMesh);
 
 document.body.appendChild(renderer.domElement);
 
+let shaderMaterial = '';
+
 // DEFAULT LOADING MANAGAER
 THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
   console.log(`Started loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
@@ -62,11 +64,20 @@ manager.onStart = (url, itemsLoaded, itemsTotal) => {
 };
 manager.onLoad = () => {
   console.log('finito il MANAGAER');
+  console.log(material);
+  console.log(material.diffuseMap);
+  shaderMaterial = new THREE.ShaderMaterial({
+    uniforms: material.uniforms,
+    vertexShader: material.vs,
+    fragmentShader: material.fs,
+  });
+  // loadFBXL();
+  var geometry = new THREE.SphereBufferGeometry(2, 32, 32);
+  var mesh = new THREE.Mesh(geometry, shaderMaterial);
+  scene.add(mesh);
 };
 manager.onProgress = (url, itemsLoaded, itemsTotal) => {
   console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
-  console.log('il manager sta lavorando');
-  loadFBXL();
 };
 manager.onError = (url) => {
   console.log(`There was an error loading  ${url}`);
@@ -86,4 +97,4 @@ function render() {
 
 render();
 
-export { manager, scene };
+export { render, manager, shaderMaterial, scene };
