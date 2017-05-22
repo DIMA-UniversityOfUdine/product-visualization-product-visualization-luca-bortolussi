@@ -1,4 +1,4 @@
-/*  global window document requestAnimationFrame :true  */
+/*  global document requestAnimationFrame :true  */
 /*  eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
 
 import loadFrag from './loader/loadFrag';
@@ -10,8 +10,8 @@ import metal from './const/metal';
 import lambert from './const/lambert';
 import Renderer from './component/Renderer';
 import Camera from './component/Camera';
-import Control from './component/Control';
 import Lights from './component/Lights';
+import control from './component/control';
 
 const THREE = require('three');
 
@@ -43,12 +43,12 @@ const renderer4 = new Renderer(300, 300, '#A8E6CF');
 const renderer5 = new Renderer(300, 300, '#9896F1');
 
 // CONTROLS
-const controls0 = new Control(camera0.camera, renderer0.renderer.domElement);
-const controls1 = new Control(camera1.camera, renderer1.renderer.domElement);
-const controls2 = new Control(camera2.camera, renderer2.renderer.domElement);
-const controls3 = new Control(camera3.camera, renderer3.renderer.domElement);
-const controls4 = new Control(camera4.camera, renderer4.renderer.domElement);
-const controls5 = new Control(camera5.camera, renderer5.renderer.domElement);
+control(camera0.camera, renderer0.renderer.domElement);
+control(camera1.camera, renderer1.renderer.domElement);
+control(camera2.camera, renderer2.renderer.domElement);
+control(camera3.camera, renderer3.renderer.domElement);
+control(camera4.camera, renderer4.renderer.domElement);
+control(camera5.camera, renderer5.renderer.domElement);
 
 // LIGHTS
 const frontLight = new Lights(1, 10, 10, 3, 7, 15);
@@ -73,7 +73,7 @@ let lambertMaterial;
 // COMPONENT
 let elica;
 
-let allLoaded= false;
+let allLoaded = false;
 
 // DEFAULT LOADING MANAGAER
 THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
@@ -82,7 +82,7 @@ THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
 THREE.DefaultLoadingManager.onLoad = () => {
   console.log('Loading Complete!');
   scene.traverse((child) => {
-    if (child.name === 'Box333') {elica = child; console.log(elica);}
+    if (child.name === 'Box333') { elica = child; console.log(elica); }
   });
   allLoaded = true;
 };
@@ -138,7 +138,7 @@ function update() {
 }
 
 function render() {
-  ( allLoaded === true ) ? update() : null;
+  (allLoaded) ? update() : null;
   requestAnimationFrame(render);
   renderer0.renderer.render(scene, camera0.camera);
   renderer1.renderer.render(scene, camera1.camera);
