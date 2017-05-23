@@ -129,9 +129,9 @@ loadVert();
 loadFrag('woodShader');
 loadFrag('metalShader');
 loadFrag('lambertShader');
-loadTexture('specularMap', 'app/textures/wood_mahogany_Specular.png');
-loadTexture('diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
-loadTexture('roughnessMap', 'app/textures/wood_mahogany_Roughness.png');
+loadTexture('specularMap', 'app/textures/Cabin_wood_Base_Color.png');
+loadTexture('diffuseMap', 'app/textures/Cabin_wood_Metallic.png');
+loadTexture('roughnessMap', 'app/textures/Cabin_wood_Roughness.png');
 
 function update() {
   elica.rotation.x += 0.1;
