@@ -1,7 +1,9 @@
 varying vec3 vNormal;
 varying vec3 vPosition;
 varying vec2 uVv;
-uniform vec3 pointLightPosition; // in world space
+uniform vec3 frontLight;
+uniform vec3 fillLight;
+uniform vec3 backLight;
 uniform vec3 clight;
 uniform sampler2D specularMap;
 uniform sampler2D diffuseMap;
@@ -33,30 +35,61 @@ float GSmith(float nDotv, float nDotl) {
 }
 
 void main() {
-  vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 );
-  vec3 l = normalize(lPosition.xyz - vPosition.xyz);
-  vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
+  vec4 frontLightPosition = viewMatrix * vec4( frontLight, 1.0 );
+  vec4 fillLightPosition = viewMatrix * vec4( fillLight, 1.0 );
+  vec4 backLightPosition = viewMatrix * vec4( backLight, 1.0 );
+
+  // trova il vettore che va dalla luce all'oggetto
+  vec3 l1 = normalize(frontLightPosition.xyz - vPosition.xyz);
+  vec3 l2 = normalize(fillLightPosition.xyz - vPosition.xyz);
+  vec3 l3 = normalize(backLightPosition.xyz - vPosition.xyz);
+
+  vec3 n = normalize( vNormal );
   vec3 v = normalize( -vPosition);
-  vec3 h = normalize( v + l);
-  // small quantity to prevent divisions by 0
-  float nDotl = max(dot( n, l ),0.000001);
-  float lDoth = max(dot( l, h ),0.000001);
-  float nDoth = max(dot( n, h ),0.000001);
-  float vDoth = max(dot( v, h ),0.000001);
+
+  // calcola il vettore h
+  vec3 h1 = normalize( v + l1);
+  vec3 h2 = normalize( v + l2);
+  vec3 h3 = normalize( v + l3);
+
+  // previene la divisione per 0
   float nDotv = max(dot( n, v ),0.000001);
+
+  float nDotl1 = max(dot( n, l1 ),0.000001);
+  float lDoth1 = max(dot( l1, h1 ),0.000001);
+  float nDoth1 = max(dot( n, h1 ),0.000001);
+  float vDoth1 = max(dot( v, h1 ),0.000001);
+
+  float nDotl2 = max(dot( n, l2 ),0.000001);
+  float lDoth2 = max(dot( l2, h2 ),0.000001);
+  float nDoth2 = max(dot( n, h2 ),0.000001);
+  float vDoth2 = max(dot( v, h2 ),0.000001);
+
+  float nDotl3 = max(dot( n, l3 ),0.000001);
+  float lDoth3 = max(dot( l3, h3 ),0.000001);
+  float nDoth3 = max(dot( n, h3 ),0.000001);
+  float vDoth3 = max(dot( v, h3 ),0.000001);
 
   cdiff = texture2D( diffuseMap, uVv*textureRepeat ).rgb;
   // texture in sRGB, linearize
   cdiff = pow( cdiff, vec3(2.2));
+
   cspec = texture2D( specularMap, uVv*textureRepeat ).rgb;
   // texture in sRGB, linearize
   cspec = pow( cspec, vec3(2.2));
-  roughness = texture2D( roughnessMap, uVv*textureRepeat).r; // no need to linearize roughness map
 
-  vec3 fresnel = FSchlick(lDoth);
-  vec3 BRDF = (vec3(1.0)-fresnel)*cdiff/PI + fresnel*GSmith(nDotv,nDotl)*DGGX(nDoth,roughness*roughness)/
-    (4.0*nDotl*nDotv);
-  vec3 outRadiance = PI* clight * nDotl * BRDF;
+  roughness = texture2D( roughnessMap, uVv*textureRepeat).r;
+  // non c'è bisogno di linearizzare la roughness map
+
+  vec3 fresnel1 = FSchlick(lDoth1);
+  vec3 fresnel2 = FSchlick(lDoth2);
+  vec3 fresnel3 = FSchlick(lDoth3);
+
+  vec3 BRDF1 = (vec3(1.0)-fresnel1)*cdiff/PI + fresnel1*GSmith(nDotv,nDotl1)*DGGX(nDoth1,roughness*roughness) / (4.0*nDotl1*nDotv);
+  vec3 BRDF2 = (vec3(1.0)-fresnel2)*cdiff/PI + fresnel2*GSmith(nDotv,nDotl2)*DGGX(nDoth2,roughness*roughness) / (4.0*nDotl2*nDotv);
+  vec3 BRDF3 = (vec3(1.0)-fresnel3)*cdiff/PI + fresnel3*GSmith(nDotv,nDotl3)*DGGX(nDoth3,roughness*roughness) / (4.0*nDotl3*nDotv);
+
+  vec3 outRadiance = (PI* clight * nDotl1 * BRDF1) + (PI* clight * nDotl2 * BRDF2) + (PI* clight * nDotl3 * BRDF3);
   // gamma encode the final value
   gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
 }

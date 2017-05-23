@@ -53,11 +53,29 @@ control(camera5.camera, renderer5.renderer.domElement);
 // LIGHTS
 const frontLight = new Lights(1, 10, 10, 3, 7, 15);
 scene.add(frontLight.lightMesh);
+wood.uniforms.frontLight.value = frontLight.lightMesh.position;
+metal.uniforms.frontLight.value = frontLight.lightMesh.position;
+lambert.uniforms.frontLight.value = frontLight.lightMesh.position;
+
 const fillLight = new Lights(1, 10, 10, -11, 3, 1);
 scene.add(fillLight.lightMesh);
+wood.uniforms.fillLight.value = fillLight.lightMesh.position;
+metal.uniforms.fillLight.value = fillLight.lightMesh.position;
+lambert.uniforms.fillLight.value = fillLight.lightMesh.position;
+
 const backLight = new Lights(1, 10, 10, 0, 8, -15);
 scene.add(backLight.lightMesh);
+wood.uniforms.backLight.value = backLight.lightMesh.position;
+metal.uniforms.backLight.value = backLight.lightMesh.position;
+lambert.uniforms.backLight.value = backLight.lightMesh.position;
 
+// CLIGHT
+const clight = new THREE.Vector3(1, 1, 1);
+wood.uniforms.clight.value = clight;
+metal.uniforms.clight.value = clight;
+lambert.uniforms.clight.value = clight;
+
+// APPENDCHILD
 portfolioThumb[0].appendChild(renderer0.renderer.domElement);
 portfolioThumb[1].appendChild(renderer1.renderer.domElement);
 portfolioThumb[2].appendChild(renderer2.renderer.domElement);
@@ -129,14 +147,16 @@ loadVert();
 loadFrag('woodShader');
 loadFrag('metalShader');
 loadFrag('lambertShader');
-loadTexture('specularMap', 'app/textures/Cabin_wood_Base_Color.png');
-loadTexture('diffuseMap', 'app/textures/Cabin_wood_Metallic.png');
+loadTexture('specularMap', 'app/textures/Cabin_wood_Metallic.png');
+loadTexture('diffuseMap', 'app/textures/Cabin_wood_Base_Color.png');
 loadTexture('roughnessMap', 'app/textures/Cabin_wood_Roughness.png');
 
+// UPDATE
 function update() {
   elica.rotation.x += 0.1;
 }
 
+// RENDER
 function render() {
   (allLoaded) ? update() : null;
   requestAnimationFrame(render);
@@ -154,6 +174,9 @@ export {
   render,
   manager,
   woodMaterial,
+  frontLight,
+  fillLight,
+  backLight,
   metalMaterial,
   lambertMaterial,
   scene };

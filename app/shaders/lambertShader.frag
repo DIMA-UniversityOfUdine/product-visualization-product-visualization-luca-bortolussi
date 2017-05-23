@@ -1,6 +1,6 @@
 varying vec3 vNormal;
     varying vec3 vPosition;
-    uniform vec3 pointLightPosition; // in world space
+    uniform vec3 frontLight; // in world space
     uniform vec3 clight;
     uniform vec3 cspec;
     uniform vec3 cdiff;
@@ -27,7 +27,7 @@ varying vec3 vNormal;
     }
 
     void main() {
-      vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 );
+      vec4 lPosition = viewMatrix * vec4( frontLight, 1.0 );
       vec3 l = normalize(lPosition.xyz - vPosition.xyz);
       vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
       vec3 v = normalize( -vPosition);
