@@ -3,7 +3,9 @@ varying vec3 vPosition;
 uniform vec3 frontLight;
 uniform vec3 fillLight;
 uniform vec3 backLight;
-uniform vec3 clight;
+uniform vec3 clight_frontLight;
+uniform vec3 clight_fillLight;
+uniform vec3 clight_backLight;
 uniform vec3 cspec;
 uniform vec3 cdiff;
 uniform float roughness;
@@ -73,7 +75,7 @@ void main() {
   vec3 BRDF2 = (vec3(1.0)-fresnel2)*cdiff/PI + fresnel2*GSmith(nDotv,nDotl2)*DGGX(nDoth2,roughness*roughness) / (4.0*nDotl2*nDotv);
   vec3 BRDF3 = (vec3(1.0)-fresnel3)*cdiff/PI + fresnel3*GSmith(nDotv,nDotl3)*DGGX(nDoth3,roughness*roughness) / (4.0*nDotl3*nDotv);
 
-  vec3 outRadiance = (PI* clight * nDotl1 * BRDF1) + (PI* clight * nDotl2 * BRDF2) + (PI* clight * nDotl3 * BRDF3);
+  vec3 outRadiance = (PI* clight_frontLight * nDotl1 * BRDF1) + (PI* clight_fillLight * nDotl2 * BRDF2) + (PI* clight_backLight * nDotl3 * BRDF3);
   // gamma encode the final value
   gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
 }

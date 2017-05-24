@@ -10,7 +10,6 @@ import metal from './const/metal';
 import lambert from './const/lambert';
 import Renderer from './component/Renderer';
 import Camera from './component/Camera';
-import Lights from './component/Lights';
 import control from './component/control';
 
 const THREE = require('three');
@@ -51,29 +50,39 @@ control(camera4.camera, renderer4.renderer.domElement);
 control(camera5.camera, renderer5.renderer.domElement);
 
 // LIGHTS
-const frontLight = new Lights(1, 10, 10, 3, 7, 15);
-scene.add(frontLight.lightMesh);
-wood.uniforms.frontLight.value = frontLight.lightMesh.position;
-metal.uniforms.frontLight.value = frontLight.lightMesh.position;
-lambert.uniforms.frontLight.value = frontLight.lightMesh.position;
+const frontLight = new THREE.Light(0xff0000, 7);
+frontLight.position.set(3, 7, 15);
+wood.uniforms.frontLight.value = frontLight.position;
+metal.uniforms.frontLight.value = frontLight.position;
+lambert.uniforms.frontLight.value = frontLight.position;
 
-const fillLight = new Lights(1, 10, 10, -11, 3, 1);
-scene.add(fillLight.lightMesh);
-wood.uniforms.fillLight.value = fillLight.lightMesh.position;
-metal.uniforms.fillLight.value = fillLight.lightMesh.position;
-lambert.uniforms.fillLight.value = fillLight.lightMesh.position;
+const fillLight = new THREE.Light(0xff0000, 4);
+fillLight.position.set(-15, 2, 3);
+wood.uniforms.fillLight.value = fillLight.position;
+metal.uniforms.fillLight.value = fillLight.position;
+lambert.uniforms.fillLight.value = fillLight.position;
 
-const backLight = new Lights(1, 10, 10, 0, 8, -15);
-scene.add(backLight.lightMesh);
-wood.uniforms.backLight.value = backLight.lightMesh.position;
-metal.uniforms.backLight.value = backLight.lightMesh.position;
-lambert.uniforms.backLight.value = backLight.lightMesh.position;
+const backLight = new THREE.Light(0xff0000, 10);
+backLight.position.set(0, 8, -15);
+wood.uniforms.backLight.value = backLight.position;
+metal.uniforms.backLight.value = backLight.position;
+lambert.uniforms.backLight.value = backLight.position;
 
 // CLIGHT
-const clight = new THREE.Vector3(1, 1, 1);
-wood.uniforms.clight.value = clight;
-metal.uniforms.clight.value = clight;
-lambert.uniforms.clight.value = clight;
+const clight_frontLight = new THREE.Vector3(0.8, 0.8, 0.8);
+wood.uniforms.clight_frontLight.value = clight_frontLight;
+metal.uniforms.clight_frontLight.value = clight_frontLight;
+lambert.uniforms.clight_frontLight.value = clight_frontLight;
+
+const clight_fillLight = new THREE.Vector3(0.3, 0.3, 0.3);
+wood.uniforms.clight_fillLight.value = clight_fillLight;
+metal.uniforms.clight_fillLight.value = clight_fillLight;
+lambert.uniforms.clight_fillLight.value = clight_fillLight;
+
+const clight_backLight = new THREE.Vector3(0.6, 0.6, 0.6);
+wood.uniforms.clight_backLight.value = clight_backLight;
+metal.uniforms.clight_backLight.value = clight_backLight;
+lambert.uniforms.clight_backLight.value = clight_backLight;
 
 // APPENDCHILD
 portfolioThumb[0].appendChild(renderer0.renderer.domElement);
@@ -89,7 +98,7 @@ let metalMaterial;
 let lambertMaterial;
 
 // COMPONENT
-let elica;
+let planetransport;
 
 let allLoaded = false;
 
@@ -100,8 +109,10 @@ THREE.DefaultLoadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
 THREE.DefaultLoadingManager.onLoad = () => {
   console.log('Loading Complete!');
   scene.traverse((child) => {
-    if (child.name === 'Box333') { elica = child; console.log(elica); }
+    if (child.name === 'planetransport') { planetransport = child; }
   });
+  console.log(planetransport.children[2].geometry);
+  planetransport.children[2].geometry.translate(0, 0, -0.4);
   allLoaded = true;
 };
 THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -147,14 +158,14 @@ loadVert();
 loadFrag('woodShader');
 loadFrag('metalShader');
 loadFrag('lambertShader');
-loadTexture('specularMap', 'app/textures/wood_mahogany_Specular.png');
-loadTexture('diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
-loadTexture('roughnessMap', 'app/textures/wood_mahogany_Roughness.png');
-loadTexture('normalMap', 'app/textures/wood_mahogany_Normal.png');
+loadTexture('specularMap', 'app/textures/bark_old_ginko_Specular.png');
+loadTexture('diffuseMap', 'app/textures/bark_old_ginko_Diffuse.png');
+loadTexture('roughnessMap', 'app/textures/bark_old_ginko_roughness.png');
+loadTexture('normalMap', 'app/textures/bark_old_ginko_Normal.png');
 
 // UPDATE
 function update() {
-  elica.rotation.x += 0.1;
+  planetransport.children[2].rotation.x += 0.1;
 }
 
 // RENDER
