@@ -37,7 +37,7 @@ void main() {
   vec3 l2 = normalize(fillLightPosition.xyz - vPosition.xyz);
   vec3 l3 = normalize(backLightPosition.xyz - vPosition.xyz);
 
-  vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
+  vec3 n = normalize( vNormal );
   vec3 v = normalize( -vPosition);
 
   // calcola il vettore h

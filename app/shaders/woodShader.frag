@@ -8,6 +8,8 @@ uniform vec3 clight;
 uniform sampler2D specularMap;
 uniform sampler2D diffuseMap;
 uniform sampler2D roughnessMap;
+uniform sampler2D normalMap;
+uniform vec2 normalScale;
 uniform vec2 textureRepeat;
 const float PI = 3.14159;
 
@@ -34,6 +36,26 @@ float GSmith(float nDotv, float nDotl) {
     return G1(nDotl,k)*G1(nDotv,k);
 }
 
+#extension GL_OES_standard_derivatives : enable
+
+vec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm ) {
+
+  vec3 q0 = dFdx( eye_pos.xyz );
+  vec3 q1 = dFdy( eye_pos.xyz );
+  vec2 st0 = dFdx( uVv.st );
+  vec2 st1 = dFdy( uVv.st );
+
+  vec3 S = normalize(  q0 * st1.t - q1 * st0.t );
+  vec3 T = normalize( -q0 * st1.s + q1 * st0.s );
+  vec3 N =  surf_norm ;
+
+  vec3 mapN = normalize(texture2D( normalMap, uVv ).xyz * 2.0 - 1.0);
+  mapN.xy = normalScale * mapN.xy;
+  mat3 tsn = mat3( S, T, N );
+  return normalize( tsn * mapN );
+
+}
+
 void main() {
   vec4 frontLightPosition = viewMatrix * vec4( frontLight, 1.0 );
   vec4 fillLightPosition = viewMatrix * vec4( fillLight, 1.0 );
@@ -44,7 +66,9 @@ void main() {
   vec3 l2 = normalize(fillLightPosition.xyz - vPosition.xyz);
   vec3 l3 = normalize(backLightPosition.xyz - vPosition.xyz);
 
-  vec3 n = normalize( vNormal );
+  // vec3 n = normalize( vNormal );
+  vec3 n = perturbNormal2Arb( vPosition, normalize( vNormal ));
+
   vec3 v = normalize( -vPosition);
 
   // calcola il vettore h
