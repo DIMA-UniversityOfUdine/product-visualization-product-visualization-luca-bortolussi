@@ -159,13 +159,16 @@ function update() {
 // RENDER
 function render() {
   (allLoaded) ? update() : null;
-  requestAnimationFrame(render);
   renderer0.renderer.render(scene, camera0.camera);
   renderer1.renderer.render(scene, camera1.camera);
   renderer2.renderer.render(scene, camera2.camera);
   renderer3.renderer.render(scene, camera3.camera);
   renderer4.renderer.render(scene, camera4.camera);
   renderer5.renderer.render(scene, camera5.camera);
+  // fps limitati per non surriscaldare il portatile in fase di produzione
+  setTimeout(() => {
+    requestAnimationFrame(render);
+  }, 1000 / 30);
 }
 
 render();
