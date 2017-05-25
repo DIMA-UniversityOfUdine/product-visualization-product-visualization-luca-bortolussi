@@ -6,9 +6,17 @@ uniform vec3 backLight;
 uniform vec3 clight_frontLight;
 uniform vec3 clight_fillLight;
 uniform vec3 clight_backLight;
-uniform vec3 cspec;
-uniform float roughness;
+// uniform vec3 cspec;
+// uniform float roughness;
 const float PI = 3.14159;
+
+varying vec2 uVv;
+uniform sampler2D specularMap;
+uniform sampler2D roughnessMap;
+uniform vec2 textureRepeat;
+
+vec3 cspec;
+float roughness;
 
 vec3 FSchlick(float lDoth) {
   return (cspec + (vec3(1.0)-cspec)*pow(1.0 - lDoth,5.0));
@@ -65,6 +73,13 @@ void main() {
   float nDoth3 = max(dot( n, h3 ),0.000001);
   float vDoth3 = max(dot( v, h3 ),0.000001);
 
+  cspec = texture2D( specularMap, uVv*textureRepeat ).rgb;
+  // texture in sRGB, linearize
+  cspec = pow( cspec, vec3(2.2));
+
+  roughness = texture2D( roughnessMap, uVv*textureRepeat).r;
+  // non c'è bisogno di linearizzare la roughness map
+
   vec3 specularBRDF1 = FSchlick(lDoth1)*GSmith(nDotv,nDotl1)*DGGX(nDoth1,roughness*roughness)/
     (4.0*nDotl1*nDotv);
   vec3 specularBRDF2 = FSchlick(lDoth2)*GSmith(nDotv,nDotl2)*DGGX(nDoth2,roughness*roughness)/
@@ -76,5 +91,4 @@ void main() {
 
   // gamma encode the final value
   gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
-  //gl_FragColor = vec4(outRadiance,1.0);
 }

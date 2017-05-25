@@ -17,7 +17,11 @@ const THREE = require('three');
 const portfolioThumb = document.getElementsByClassName('portfolio-thumb');
 
 // RANDOM FUNCTION
-function rand() {
+function rand_ver() {
+  const number = Math.floor((Math.random() * 25) - 5);
+  return (number);
+}
+function rand_or() {
   const number = Math.floor((Math.random() * 30) - 15);
   return (number);
 }
@@ -26,12 +30,12 @@ function rand() {
 const scene = new THREE.Scene();
 
 //  CAMERA
-const camera0 = new Camera(rand(), rand(), 20);
-const camera1 = new Camera(rand(), rand(), 20);
-const camera2 = new Camera(rand(), rand(), 20);
-const camera3 = new Camera(rand(), rand(), 20);
-const camera4 = new Camera(rand(), rand(), 20);
-const camera5 = new Camera(rand(), rand(), 20);
+const camera0 = new Camera(rand_or(), rand_ver(), 20);
+const camera1 = new Camera(rand_or(), rand_ver(), 20);
+const camera2 = new Camera(rand_or(), rand_ver(), 20);
+const camera3 = new Camera(rand_or(), rand_ver(), 20);
+const camera4 = new Camera(rand_or(), rand_ver(), 20);
+const camera5 = new Camera(rand_or(), rand_ver(), 20);
 
 // RENDERER
 const renderer0 = new Renderer(300, 300, '#FAFBD4');
@@ -51,7 +55,7 @@ control(camera5.camera, renderer5.renderer.domElement);
 
 // LIGHTS
 const frontLight = new THREE.Light(0xff0000, 7);
-frontLight.position.set(3, 7, 15);
+frontLight.position.set(3, 4, 15);
 wood.uniforms.frontLight.value = frontLight.position;
 metal.uniforms.frontLight.value = frontLight.position;
 lambert.uniforms.frontLight.value = frontLight.position;
@@ -69,7 +73,7 @@ metal.uniforms.backLight.value = backLight.position;
 lambert.uniforms.backLight.value = backLight.position;
 
 // CLIGHT
-const clight_frontLight = new THREE.Vector3(0.8, 0.8, 0.8);
+const clight_frontLight = new THREE.Vector3(1, 1, 1);
 wood.uniforms.clight_frontLight.value = clight_frontLight;
 metal.uniforms.clight_frontLight.value = clight_frontLight;
 lambert.uniforms.clight_frontLight.value = clight_frontLight;
@@ -110,7 +114,9 @@ THREE.DefaultLoadingManager.onLoad = () => {
   console.log('Loading Complete!');
   scene.traverse((child) => {
     if (child.name === 'planetransport') { planetransport = child; }
+    if (child.name === 'Object002') { console.log(child.geometry.parameters); }
   });
+
   console.log(planetransport.children[2].geometry);
   planetransport.children[2].geometry.translate(0, 0, -0.4);
   allLoaded = true;
@@ -158,10 +164,14 @@ loadVert();
 loadFrag('woodShader');
 loadFrag('metalShader');
 loadFrag('lambertShader');
-loadTexture('specularMap', 'app/textures/bark_old_ginko_Specular.png');
-loadTexture('diffuseMap', 'app/textures/bark_old_ginko_Diffuse.png');
-loadTexture('roughnessMap', 'app/textures/bark_old_ginko_roughness.png');
-loadTexture('normalMap', 'app/textures/bark_old_ginko_Normal.png');
+loadTexture('wood', 'specularMap', 'app/textures/wood_mahogany_Specular.png');
+loadTexture('wood', 'diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
+loadTexture('wood', 'roughnessMap', 'app/textures/wood_mahogany_roughness.png');
+loadTexture('wood', 'normalMap', 'app/textures/wood_mahogany_Normal.png');
+
+loadTexture('metal', 'specularMap', 'app/textures/metal_aluminium_directional_Specular.png');
+// loadTexture('metal', 'diffuseMap', 'app/textures/metal_steel_brushed_Diffuse.png');
+loadTexture('metal', 'roughnessMap', 'app/textures/metal_aluminium_directional_Roughness.png');
 
 // UPDATE
 function update() {
