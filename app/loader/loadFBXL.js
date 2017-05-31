@@ -10,8 +10,9 @@ require('../lib/FBXLoader.js');
 //  FBXL LOADER
 export default function loadFBXL() {
   const loader = new THREE.FBXLoader();
-  loader.load('./app/obj/plane.fbx', (object) => {
+  loader.load('./app/obj/plane_def2.fbx', (object) => {
     object.traverse((child) => {
+      console.log(child.name);
       switch (child.name) {
         case 'Object002': // VETRO
           child.material = metalMaterial;
@@ -38,6 +39,7 @@ export default function loadFBXL() {
           return false;
       }
     });
+    object.scale.set(0.01, 0.01, 0.01);
     scene.add(object);
   });
 }

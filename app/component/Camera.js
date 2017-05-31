@@ -2,7 +2,7 @@ const THREE = require('three');
 
 class Camera {
   constructor(x, y, z) {
-    this.camera = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 100000);
     this.position(x, y, z);
     this.look();
   }

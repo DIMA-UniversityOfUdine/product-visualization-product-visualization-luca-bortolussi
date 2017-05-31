@@ -1,3 +1,5 @@
+// #extension GL_OES_standard_derivatives : enable
+
 varying vec3 vNormal;
 varying vec3 vPosition;
 varying vec2 uVv;
@@ -37,8 +39,6 @@ float GSmith(float nDotv, float nDotl) {
     float k = roughness*roughness;
     return G1(nDotl,k)*G1(nDotv,k);
 }
-
-#extension GL_OES_standard_derivatives : enable
 
 vec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm ) {
 

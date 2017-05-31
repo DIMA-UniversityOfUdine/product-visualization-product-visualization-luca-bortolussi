@@ -114,7 +114,8 @@ THREE.DefaultLoadingManager.onLoad = () => {
   console.log('Loading Complete!');
   scene.traverse((child) => {
     if (child.name === 'planetransport') { planetransport = child; }
-    if (child.name === 'Object002') { console.log(child.geometry.parameters); }
+    console.log(child.name);
+    // if (child.name === 'Object002') { console.log(child.geometry.parameters); }
   });
 
   console.log(planetransport.children[2].geometry);
@@ -140,6 +141,7 @@ manager.onLoad = () => {
     vertexShader: wood.vs,
     fragmentShader: wood.fs,
   });
+  woodMaterial.extensions.derivatives = true;
   metalMaterial = new THREE.ShaderMaterial({
     uniforms: metal.uniforms,
     vertexShader: metal.vs,
@@ -164,10 +166,10 @@ loadVert();
 loadFrag('woodShader');
 loadFrag('metalShader');
 loadFrag('lambertShader');
-loadTexture('wood', 'specularMap', 'app/textures/wood_mahogany_Specular.png');
-loadTexture('wood', 'diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
-loadTexture('wood', 'roughnessMap', 'app/textures/wood_mahogany_roughness.png');
-loadTexture('wood', 'normalMap', 'app/textures/wood_mahogany_Normal.png');
+loadTexture('wood', 'specularMap', 'app/textures/bark_old_ginko_Specular.png');
+loadTexture('wood', 'diffuseMap', 'app/textures/bark_old_ginko_Diffuse.png');
+loadTexture('wood', 'roughnessMap', 'app/textures/bark_old_ginko_roughness.png');
+loadTexture('wood', 'normalMap', 'app/textures/bark_old_ginko_Normal.png');
 
 loadTexture('metal', 'specularMap', 'app/textures/metal_aluminium_directional_Specular.png');
 // loadTexture('metal', 'diffuseMap', 'app/textures/metal_steel_brushed_Diffuse.png');
