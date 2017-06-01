@@ -3,6 +3,7 @@
 varying vec3 vNormal;
 varying vec3 vPosition;
 varying vec2 uVv;
+uniform float ambientLight;
 uniform vec3 frontLight;
 uniform vec3 fillLight;
 uniform vec3 backLight;

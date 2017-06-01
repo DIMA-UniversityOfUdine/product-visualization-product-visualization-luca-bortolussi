@@ -55,12 +55,19 @@ control(camera4.camera, renderer4.renderer.domElement);
 control(camera5.camera, renderer5.renderer.domElement);
 
 // LIGHTS
+const ambientLight = new THREE.AmbientLight(0xff0000, 0);
+wood.uniforms.ambientLight.value = ambientLight.intensity;
+woodRed.uniforms.ambientLight.value = ambientLight.intensity;
+metal.uniforms.ambientLight.value = ambientLight.intensity;
+lambert.uniforms.ambientLight.value = ambientLight.intensity;
+
 const frontLight = new THREE.Light(0xff0000, 7);
 frontLight.position.set(3, 4, 15);
 wood.uniforms.frontLight.value = frontLight.position;
 woodRed.uniforms.frontLight.value = frontLight.position;
 metal.uniforms.frontLight.value = frontLight.position;
 lambert.uniforms.frontLight.value = frontLight.position;
+scene.add(frontLight);
 
 const fillLight = new THREE.Light(0xff0000, 4);
 fillLight.position.set(-15, 2, 3);
@@ -108,6 +115,7 @@ let woodMaterial;
 let woodRedMaterial;
 let metalMaterial;
 let lambertMaterial;
+let opacityMaterial;
 
 // COMPONENT
 let planetransport;
@@ -123,7 +131,6 @@ THREE.DefaultLoadingManager.onLoad = () => {
   scene.traverse((child) => {
     if (child.name === 'planetransport') { planetransport = child; }
   });
-  console.log(planetransport.children);
   allLoaded = true;
 };
 THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -145,6 +152,7 @@ manager.onLoad = () => {
     vertexShader: wood.vs,
     fragmentShader: wood.fs,
   });
+  console.log(wood);
   woodMaterial.extensions.derivatives = true;
   woodRedMaterial = new THREE.ShaderMaterial({
     uniforms: woodRed.uniforms,
@@ -162,9 +170,14 @@ manager.onLoad = () => {
     vertexShader: lambert.vs,
     fragmentShader: lambert.fs,
   });
+  opacityMaterial = new THREE.MeshStandardMaterial({
+    color: '#eafcff',
+    opacity: 0.9,
+    transparent: true,
+    // premultipliedAlpha: true,
+  });
   loadFBXL();
   console.log('lambert');
-  console.log(woodRed);
 };
 manager.onProgress = (url, itemsLoaded, itemsTotal) => {
   console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
@@ -190,7 +203,6 @@ loadTexture('woodRed', 'roughnessMap', 'app/textures/wood_mahogany_roughness.png
 loadTexture('woodRed', 'normalMap', 'app/textures/wood_mahogany_Normal.png');
 
 loadTexture('metal', 'specularMap', 'app/textures/metal_aluminium_directional_Specular.png');
-// loadTexture('metal', 'diffuseMap', 'app/textures/metal_steel_brushed_Diffuse.png');
 loadTexture('metal', 'roughnessMap', 'app/textures/metal_aluminium_directional_Roughness.png');
 
 // UPDATE
@@ -225,4 +237,5 @@ export {
   metalMaterial,
   lambertMaterial,
   woodRedMaterial,
+  opacityMaterial,
   scene };

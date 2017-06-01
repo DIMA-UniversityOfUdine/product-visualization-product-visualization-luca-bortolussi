@@ -1,5 +1,5 @@
 //  IMPORT
-import { woodMaterial, woodRedMaterial, metalMaterial, lambertMaterial, scene } from '../index';
+import { woodMaterial, woodRedMaterial, metalMaterial, lambertMaterial, opacityMaterial, scene } from '../index';
 // REQUIRE
 const THREE = require('three');
 
@@ -11,10 +11,9 @@ export default function loadFBXL() {
   const loader = new THREE.FBXLoader();
   loader.load('./app/obj/plane_def.fbx', (object) => {
     object.traverse((child) => {
-      console.log(child.name);
       switch (child.name) {
         case 'Object002': // VETRO
-          child.material = metalMaterial;
+          child.material = opacityMaterial;
           break;
         case 'Box333':  //ELICA
           child.material = metalMaterial;
