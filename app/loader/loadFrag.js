@@ -1,4 +1,5 @@
 import wood from '../const/wood';
+import woodRed from '../const/woodRed';
 import metal from '../const/metal';
 import lambert from '../const/lambert';
 import { manager } from '../index';
@@ -15,6 +16,9 @@ export default function loadFrag(file) {
       switch (file) {
         case 'woodShader':
           wood.fs = data.toString();
+          break;
+        case 'woodRedShader':
+          woodRed.fs = data.toString();
           break;
         case 'metalShader':
           metal.fs = data.toString();

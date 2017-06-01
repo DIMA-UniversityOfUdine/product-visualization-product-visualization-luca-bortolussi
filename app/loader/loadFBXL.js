@@ -1,6 +1,5 @@
 //  IMPORT
-import { woodMaterial, metalMaterial, lambertMaterial, scene } from '../index';
-import wood from '../const/wood';
+import { woodMaterial, woodRedMaterial, metalMaterial, lambertMaterial, scene } from '../index';
 // REQUIRE
 const THREE = require('three');
 
@@ -10,7 +9,7 @@ require('../lib/FBXLoader.js');
 //  FBXL LOADER
 export default function loadFBXL() {
   const loader = new THREE.FBXLoader();
-  loader.load('./app/obj/plane_def2.fbx', (object) => {
+  loader.load('./app/obj/plane_def.fbx', (object) => {
     object.traverse((child) => {
       console.log(child.name);
       switch (child.name) {
@@ -30,7 +29,7 @@ export default function loadFBXL() {
           child.material = metalMaterial;
           break;
         case 'Object001': // PARTI COLORATE
-          child.material = lambertMaterial;
+          child.material = woodRedMaterial;
           break;
         case 'Box327': // CORPO PRINCIPALE
           child.material = woodMaterial;

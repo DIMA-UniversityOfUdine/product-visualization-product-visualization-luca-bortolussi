@@ -1,4 +1,5 @@
 import wood from '../const/wood';
+import woodRed from '../const/woodRed';
 import metal from '../const/metal';
 import lambert from '../const/lambert';
 import { manager } from '../index';
@@ -14,6 +15,7 @@ export default function loadVert() {
     'app/shaders/index.vert',
     (data) => {
       wood.vs = data;
+      woodRed.vs = data;
       metal.vs = data;
       lambert.vs = data;
     },

@@ -1,4 +1,5 @@
 import wood from '../const/wood';
+import woodRed from '../const/woodRed';
 import metal from '../const/metal';
 import { manager } from '../index';
 
@@ -17,6 +18,9 @@ export default function loadTexture(material, type, file) {
       switch (material) {
         case 'wood':
           wood.uniforms[type].value = texture;
+          break;
+        case 'woodRed':
+          woodRed.uniforms[type].value = texture;
           break;
         case 'metal':
           metal.uniforms[type].value = texture;

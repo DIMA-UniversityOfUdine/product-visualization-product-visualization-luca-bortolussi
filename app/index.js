@@ -6,6 +6,7 @@ import loadVert from './loader/loadVert';
 import loadTexture from './loader/loadTexture';
 import loadFBXL from './loader/loadFBXL';
 import wood from './const/wood';
+import woodRed from './const/woodRed';
 import metal from './const/metal';
 import lambert from './const/lambert';
 import Renderer from './component/Renderer';
@@ -57,34 +58,40 @@ control(camera5.camera, renderer5.renderer.domElement);
 const frontLight = new THREE.Light(0xff0000, 7);
 frontLight.position.set(3, 4, 15);
 wood.uniforms.frontLight.value = frontLight.position;
+woodRed.uniforms.frontLight.value = frontLight.position;
 metal.uniforms.frontLight.value = frontLight.position;
 lambert.uniforms.frontLight.value = frontLight.position;
 
 const fillLight = new THREE.Light(0xff0000, 4);
 fillLight.position.set(-15, 2, 3);
 wood.uniforms.fillLight.value = fillLight.position;
+woodRed.uniforms.fillLight.value = fillLight.position;
 metal.uniforms.fillLight.value = fillLight.position;
 lambert.uniforms.fillLight.value = fillLight.position;
 
 const backLight = new THREE.Light(0xff0000, 10);
 backLight.position.set(0, 8, -15);
 wood.uniforms.backLight.value = backLight.position;
+woodRed.uniforms.backLight.value = backLight.position;
 metal.uniforms.backLight.value = backLight.position;
 lambert.uniforms.backLight.value = backLight.position;
 
 // CLIGHT
 const clight_frontLight = new THREE.Vector3(1, 1, 1);
 wood.uniforms.clight_frontLight.value = clight_frontLight;
+woodRed.uniforms.clight_frontLight.value = clight_frontLight;
 metal.uniforms.clight_frontLight.value = clight_frontLight;
 lambert.uniforms.clight_frontLight.value = clight_frontLight;
 
 const clight_fillLight = new THREE.Vector3(0.3, 0.3, 0.3);
 wood.uniforms.clight_fillLight.value = clight_fillLight;
+woodRed.uniforms.clight_fillLight.value = clight_fillLight;
 metal.uniforms.clight_fillLight.value = clight_fillLight;
 lambert.uniforms.clight_fillLight.value = clight_fillLight;
 
 const clight_backLight = new THREE.Vector3(0.6, 0.6, 0.6);
 wood.uniforms.clight_backLight.value = clight_backLight;
+woodRed.uniforms.clight_backLight.value = clight_backLight;
 metal.uniforms.clight_backLight.value = clight_backLight;
 lambert.uniforms.clight_backLight.value = clight_backLight;
 
@@ -98,6 +105,7 @@ portfolioThumb[5].appendChild(renderer5.renderer.domElement);
 
 //  MATERIAL
 let woodMaterial;
+let woodRedMaterial;
 let metalMaterial;
 let lambertMaterial;
 
@@ -118,8 +126,8 @@ THREE.DefaultLoadingManager.onLoad = () => {
     // if (child.name === 'Object002') { console.log(child.geometry.parameters); }
   });
 
-  console.log(planetransport.children[2].geometry);
-  planetransport.children[2].geometry.translate(0, 0, -0.4);
+  // console.log(planetransport.children[2].geometry);
+  // planetransport.children[2].geometry.translate(0, 0, -0.4);
   allLoaded = true;
 };
 THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -142,6 +150,12 @@ manager.onLoad = () => {
     fragmentShader: wood.fs,
   });
   woodMaterial.extensions.derivatives = true;
+  woodRedMaterial = new THREE.ShaderMaterial({
+    uniforms: woodRed.uniforms,
+    vertexShader: woodRed.vs,
+    fragmentShader: woodRed.fs,
+  });
+  woodRedMaterial.extensions.derivatives = true;
   metalMaterial = new THREE.ShaderMaterial({
     uniforms: metal.uniforms,
     vertexShader: metal.vs,
@@ -153,6 +167,8 @@ manager.onLoad = () => {
     fragmentShader: lambert.fs,
   });
   loadFBXL();
+  console.log('lambert');
+  console.log(woodRed);
 };
 manager.onProgress = (url, itemsLoaded, itemsTotal) => {
   console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
@@ -164,12 +180,18 @@ manager.onError = (url) => {
 // LOADER
 loadVert();
 loadFrag('woodShader');
+loadFrag('woodRedShader');
 loadFrag('metalShader');
 loadFrag('lambertShader');
-loadTexture('wood', 'specularMap', 'app/textures/bark_old_ginko_Specular.png');
-loadTexture('wood', 'diffuseMap', 'app/textures/bark_old_ginko_Diffuse.png');
-loadTexture('wood', 'roughnessMap', 'app/textures/bark_old_ginko_roughness.png');
-loadTexture('wood', 'normalMap', 'app/textures/bark_old_ginko_Normal.png');
+loadTexture('wood', 'specularMap', 'app/textures/wood_mahogany_Specular.png');
+loadTexture('wood', 'diffuseMap', 'app/textures/wood_mahogany_Diffuse.png');
+loadTexture('wood', 'roughnessMap', 'app/textures/wood_mahogany_roughness.png');
+loadTexture('wood', 'normalMap', 'app/textures/wood_mahogany_Normal.png');
+
+loadTexture('woodRed', 'specularMap', 'app/textures/wood_mahogany_Specular.png');
+loadTexture('woodRed', 'diffuseMap', 'app/textures/wood_mahoganyRed_Diffuse.png');
+loadTexture('woodRed', 'roughnessMap', 'app/textures/wood_mahogany_roughness.png');
+loadTexture('woodRed', 'normalMap', 'app/textures/wood_mahogany_Normal.png');
 
 loadTexture('metal', 'specularMap', 'app/textures/metal_aluminium_directional_Specular.png');
 // loadTexture('metal', 'diffuseMap', 'app/textures/metal_steel_brushed_Diffuse.png');
@@ -177,7 +199,7 @@ loadTexture('metal', 'roughnessMap', 'app/textures/metal_aluminium_directional_R
 
 // UPDATE
 function update() {
-  planetransport.children[2].rotation.x += 0.1;
+  // planetransport.children[2].rotation.x += 0.1;
 }
 
 // RENDER
@@ -200,10 +222,11 @@ render();
 export {
   render,
   manager,
-  woodMaterial,
   frontLight,
   fillLight,
   backLight,
+  woodMaterial,
   metalMaterial,
   lambertMaterial,
+  woodRedMaterial,
   scene };
