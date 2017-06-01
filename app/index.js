@@ -122,12 +122,8 @@ THREE.DefaultLoadingManager.onLoad = () => {
   console.log('Loading Complete!');
   scene.traverse((child) => {
     if (child.name === 'planetransport') { planetransport = child; }
-    console.log(child.name);
-    // if (child.name === 'Object002') { console.log(child.geometry.parameters); }
   });
-
-  // console.log(planetransport.children[2].geometry);
-  // planetransport.children[2].geometry.translate(0, 0, -0.4);
+  console.log(planetransport.children);
   allLoaded = true;
 };
 THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -199,7 +195,7 @@ loadTexture('metal', 'roughnessMap', 'app/textures/metal_aluminium_directional_R
 
 // UPDATE
 function update() {
-  // planetransport.children[2].rotation.x += 0.1;
+  planetransport.children[0].rotation.x += 0.1;
 }
 
 // RENDER

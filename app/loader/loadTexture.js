@@ -14,7 +14,7 @@ export default function loadTexture(material, type, file) {
       texture.minFilter = THREE.LinearMipMapLinearFilter;
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
       texture.offset.set(0, 0);
-      texture.needsUpdate = true;
+      // texture.needsUpdate = true;
       switch (material) {
         case 'wood':
           wood.uniforms[type].value = texture;
