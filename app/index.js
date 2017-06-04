@@ -31,12 +31,12 @@ function rand_or() {
 const scene = new THREE.Scene();
 
 //  CAMERA
-const camera0 = new Camera(rand_or(), rand_ver(), 20);
-const camera1 = new Camera(rand_or(), rand_ver(), 20);
-const camera2 = new Camera(rand_or(), rand_ver(), 20);
-const camera3 = new Camera(rand_or(), rand_ver(), 20);
-const camera4 = new Camera(rand_or(), rand_ver(), 20);
-const camera5 = new Camera(rand_or(), rand_ver(), 20);
+const camera0 = new Camera(rand_or(), rand_ver(), 19);
+const camera1 = new Camera(rand_or(), rand_ver(), 19);
+const camera2 = new Camera(rand_or(), rand_ver(), 19);
+const camera3 = new Camera(rand_or(), rand_ver(), 19);
+const camera4 = new Camera(rand_or(), rand_ver(), 19);
+const camera5 = new Camera(rand_or(), rand_ver(), 19);
 
 // RENDERER
 const renderer0 = new Renderer(300, 300, '#FAFBD4');
@@ -111,11 +111,11 @@ portfolioThumb[4].appendChild(renderer4.renderer.domElement);
 portfolioThumb[5].appendChild(renderer5.renderer.domElement);
 
 //  MATERIAL
-let woodMaterial;
-let woodRedMaterial;
-let metalMaterial;
-let lambertMaterial;
-let opacityMaterial;
+let woodMaterial
+let woodRedMaterial
+let metalMaterial
+let lambertMaterial
+let opacityMaterial
 
 // COMPONENT
 let planetransport;
@@ -172,7 +172,7 @@ manager.onLoad = () => {
   });
   opacityMaterial = new THREE.MeshStandardMaterial({
     color: '#eafcff',
-    opacity: 0.9,
+    opacity: 0.8,
     transparent: true,
     // premultipliedAlpha: true,
   });
