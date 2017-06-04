@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -43754,57 +43754,32 @@ function CanvasRenderer() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const THREE = __webpack_require__(0);
-
-const wood = {
-  vs: null,
-  fs: null,
-  uniforms: {
-    specularMap: { type: 't', value: {} },
-    diffuseMap: { type: 't', value: {} },
-    roughnessMap: { type: 't', value: {} },
-    normalMap: { type: 't', value: {} },
-    normalScale: { type: 'v2', value: new THREE.Vector2(1, 1) },
-    textureRepeat: { type: 'v2', value: new THREE.Vector2(3, 3) },
-    frontLight: { type: 'v3', value: new THREE.Vector3() },
-    fillLight: { type: 'v3', value: new THREE.Vector3() },
-    backLight: { type: 'v3', value: new THREE.Vector3() },
-    clight_frontLight: { type: 'v3', value: new THREE.Vector3() },
-    clight_fillLight: { type: 'v3', value: new THREE.Vector3() },
-    clight_backLight: { type: 'v3', value: new THREE.Vector3() },
-  },
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (wood);
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "manager", function() { return manager; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "woodMaterial", function() { return woodMaterial; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "frontLight", function() { return frontLight; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fillLight", function() { return fillLight; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "backLight", function() { return backLight; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "woodMaterial", function() { return woodMaterial; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "metalMaterial", function() { return metalMaterial; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lambertMaterial", function() { return lambertMaterial; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "woodRedMaterial", function() { return woodRedMaterial; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "opacityMaterial", function() { return opacityMaterial; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scene", function() { return scene; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loader_loadVert__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loader_loadFBXL__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__const_wood__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__const_metal__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__const_lambert__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__component_Renderer__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__component_Camera__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__component_control__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__loader_loadVert__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loader_loadFBXL__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__const_wood__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__const_woodRed__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__const_metal__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__const_lambert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__component_Renderer__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__component_Camera__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__component_control__ = __webpack_require__(8);
 /*  global document requestAnimationFrame :true  */
 /*  eslint no-console: ["error", { allow: ["warn", "error", "log"] }] */
+
 
 
 
@@ -43835,63 +43810,76 @@ function rand_or() {
 const scene = new THREE.Scene();
 
 //  CAMERA
-const camera0 = new __WEBPACK_IMPORTED_MODULE_8__component_Camera__["a" /* default */](rand_or(), rand_ver(), 20);
-const camera1 = new __WEBPACK_IMPORTED_MODULE_8__component_Camera__["a" /* default */](rand_or(), rand_ver(), 20);
-const camera2 = new __WEBPACK_IMPORTED_MODULE_8__component_Camera__["a" /* default */](rand_or(), rand_ver(), 20);
-const camera3 = new __WEBPACK_IMPORTED_MODULE_8__component_Camera__["a" /* default */](rand_or(), rand_ver(), 20);
-const camera4 = new __WEBPACK_IMPORTED_MODULE_8__component_Camera__["a" /* default */](rand_or(), rand_ver(), 20);
-const camera5 = new __WEBPACK_IMPORTED_MODULE_8__component_Camera__["a" /* default */](rand_or(), rand_ver(), 20);
+const camera0 = new __WEBPACK_IMPORTED_MODULE_9__component_Camera__["a" /* default */](rand_or(), rand_ver(), 19);
+const camera1 = new __WEBPACK_IMPORTED_MODULE_9__component_Camera__["a" /* default */](rand_or(), rand_ver(), 19);
+const camera2 = new __WEBPACK_IMPORTED_MODULE_9__component_Camera__["a" /* default */](rand_or(), rand_ver(), 19);
+const camera3 = new __WEBPACK_IMPORTED_MODULE_9__component_Camera__["a" /* default */](rand_or(), rand_ver(), 19);
+const camera4 = new __WEBPACK_IMPORTED_MODULE_9__component_Camera__["a" /* default */](rand_or(), rand_ver(), 19);
+const camera5 = new __WEBPACK_IMPORTED_MODULE_9__component_Camera__["a" /* default */](rand_or(), rand_ver(), 19);
 
 // RENDERER
-const renderer0 = new __WEBPACK_IMPORTED_MODULE_7__component_Renderer__["a" /* default */](300, 300, '#FAFBD4');
-const renderer1 = new __WEBPACK_IMPORTED_MODULE_7__component_Renderer__["a" /* default */](300, 300, '#DCEDC1');
-const renderer2 = new __WEBPACK_IMPORTED_MODULE_7__component_Renderer__["a" /* default */](300, 300, '#FFD3B6');
-const renderer3 = new __WEBPACK_IMPORTED_MODULE_7__component_Renderer__["a" /* default */](300, 300, '#FFAAA5');
-const renderer4 = new __WEBPACK_IMPORTED_MODULE_7__component_Renderer__["a" /* default */](300, 300, '#A8E6CF');
-const renderer5 = new __WEBPACK_IMPORTED_MODULE_7__component_Renderer__["a" /* default */](300, 300, '#9896F1');
+const renderer0 = new __WEBPACK_IMPORTED_MODULE_8__component_Renderer__["a" /* default */](300, 300, '#FAFBD4');
+const renderer1 = new __WEBPACK_IMPORTED_MODULE_8__component_Renderer__["a" /* default */](300, 300, '#DCEDC1');
+const renderer2 = new __WEBPACK_IMPORTED_MODULE_8__component_Renderer__["a" /* default */](300, 300, '#FFD3B6');
+const renderer3 = new __WEBPACK_IMPORTED_MODULE_8__component_Renderer__["a" /* default */](300, 300, '#FFAAA5');
+const renderer4 = new __WEBPACK_IMPORTED_MODULE_8__component_Renderer__["a" /* default */](300, 300, '#A8E6CF');
+const renderer5 = new __WEBPACK_IMPORTED_MODULE_8__component_Renderer__["a" /* default */](300, 300, '#9896F1');
 
 // CONTROLS
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__component_control__["a" /* default */])(camera0.camera, renderer0.renderer.domElement);
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__component_control__["a" /* default */])(camera1.camera, renderer1.renderer.domElement);
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__component_control__["a" /* default */])(camera2.camera, renderer2.renderer.domElement);
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__component_control__["a" /* default */])(camera3.camera, renderer3.renderer.domElement);
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__component_control__["a" /* default */])(camera4.camera, renderer4.renderer.domElement);
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__component_control__["a" /* default */])(camera5.camera, renderer5.renderer.domElement);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__component_control__["a" /* default */])(camera0.camera, renderer0.renderer.domElement);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__component_control__["a" /* default */])(camera1.camera, renderer1.renderer.domElement);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__component_control__["a" /* default */])(camera2.camera, renderer2.renderer.domElement);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__component_control__["a" /* default */])(camera3.camera, renderer3.renderer.domElement);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__component_control__["a" /* default */])(camera4.camera, renderer4.renderer.domElement);
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__component_control__["a" /* default */])(camera5.camera, renderer5.renderer.domElement);
 
 // LIGHTS
+const ambientLight = new THREE.AmbientLight(0xff0000, 0);
+__WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].uniforms.ambientLight.value = ambientLight.intensity;
+__WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].uniforms.ambientLight.value = ambientLight.intensity;
+__WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].uniforms.ambientLight.value = ambientLight.intensity;
+__WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].uniforms.ambientLight.value = ambientLight.intensity;
+
 const frontLight = new THREE.Light(0xff0000, 7);
 frontLight.position.set(3, 4, 15);
 __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].uniforms.frontLight.value = frontLight.position;
-__WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].uniforms.frontLight.value = frontLight.position;
-__WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].uniforms.frontLight.value = frontLight.position;
+__WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].uniforms.frontLight.value = frontLight.position;
+__WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].uniforms.frontLight.value = frontLight.position;
+__WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].uniforms.frontLight.value = frontLight.position;
+scene.add(frontLight);
 
 const fillLight = new THREE.Light(0xff0000, 4);
 fillLight.position.set(-15, 2, 3);
 __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].uniforms.fillLight.value = fillLight.position;
-__WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].uniforms.fillLight.value = fillLight.position;
-__WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].uniforms.fillLight.value = fillLight.position;
+__WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].uniforms.fillLight.value = fillLight.position;
+__WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].uniforms.fillLight.value = fillLight.position;
+__WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].uniforms.fillLight.value = fillLight.position;
 
 const backLight = new THREE.Light(0xff0000, 10);
 backLight.position.set(0, 8, -15);
 __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].uniforms.backLight.value = backLight.position;
-__WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].uniforms.backLight.value = backLight.position;
-__WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].uniforms.backLight.value = backLight.position;
+__WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].uniforms.backLight.value = backLight.position;
+__WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].uniforms.backLight.value = backLight.position;
+__WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].uniforms.backLight.value = backLight.position;
 
 // CLIGHT
 const clight_frontLight = new THREE.Vector3(1, 1, 1);
 __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].uniforms.clight_frontLight.value = clight_frontLight;
-__WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].uniforms.clight_frontLight.value = clight_frontLight;
-__WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].uniforms.clight_frontLight.value = clight_frontLight;
+__WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].uniforms.clight_frontLight.value = clight_frontLight;
+__WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].uniforms.clight_frontLight.value = clight_frontLight;
+__WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].uniforms.clight_frontLight.value = clight_frontLight;
 
 const clight_fillLight = new THREE.Vector3(0.3, 0.3, 0.3);
 __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].uniforms.clight_fillLight.value = clight_fillLight;
-__WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].uniforms.clight_fillLight.value = clight_fillLight;
-__WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].uniforms.clight_fillLight.value = clight_fillLight;
+__WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].uniforms.clight_fillLight.value = clight_fillLight;
+__WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].uniforms.clight_fillLight.value = clight_fillLight;
+__WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].uniforms.clight_fillLight.value = clight_fillLight;
 
 const clight_backLight = new THREE.Vector3(0.6, 0.6, 0.6);
 __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].uniforms.clight_backLight.value = clight_backLight;
-__WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].uniforms.clight_backLight.value = clight_backLight;
-__WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].uniforms.clight_backLight.value = clight_backLight;
+__WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].uniforms.clight_backLight.value = clight_backLight;
+__WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].uniforms.clight_backLight.value = clight_backLight;
+__WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].uniforms.clight_backLight.value = clight_backLight;
 
 // APPENDCHILD
 portfolioThumb[0].appendChild(renderer0.renderer.domElement);
@@ -43902,9 +43890,11 @@ portfolioThumb[4].appendChild(renderer4.renderer.domElement);
 portfolioThumb[5].appendChild(renderer5.renderer.domElement);
 
 //  MATERIAL
-let woodMaterial;
-let metalMaterial;
-let lambertMaterial;
+let woodMaterial
+let woodRedMaterial
+let metalMaterial
+let lambertMaterial
+let opacityMaterial
 
 // COMPONENT
 let planetransport;
@@ -43919,11 +43909,7 @@ THREE.DefaultLoadingManager.onLoad = () => {
   console.log('Loading Complete!');
   scene.traverse((child) => {
     if (child.name === 'planetransport') { planetransport = child; }
-    if (child.name === 'Object002') { console.log(child.geometry.parameters); }
   });
-
-  console.log(planetransport.children[2].geometry);
-  planetransport.children[2].geometry.translate(0, 0, -0.4);
   allLoaded = true;
 };
 THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -43945,17 +43931,32 @@ manager.onLoad = () => {
     vertexShader: __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].vs,
     fragmentShader: __WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */].fs,
   });
+  console.log(__WEBPACK_IMPORTED_MODULE_4__const_wood__["a" /* default */]);
+  woodMaterial.extensions.derivatives = true;
+  woodRedMaterial = new THREE.ShaderMaterial({
+    uniforms: __WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].uniforms,
+    vertexShader: __WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].vs,
+    fragmentShader: __WEBPACK_IMPORTED_MODULE_5__const_woodRed__["a" /* default */].fs,
+  });
+  woodRedMaterial.extensions.derivatives = true;
   metalMaterial = new THREE.ShaderMaterial({
-    uniforms: __WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].uniforms,
-    vertexShader: __WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].vs,
-    fragmentShader: __WEBPACK_IMPORTED_MODULE_5__const_metal__["a" /* default */].fs,
+    uniforms: __WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].uniforms,
+    vertexShader: __WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].vs,
+    fragmentShader: __WEBPACK_IMPORTED_MODULE_6__const_metal__["a" /* default */].fs,
   });
   lambertMaterial = new THREE.ShaderMaterial({
-    uniforms: __WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].uniforms,
-    vertexShader: __WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].vs,
-    fragmentShader: __WEBPACK_IMPORTED_MODULE_6__const_lambert__["a" /* default */].fs,
+    uniforms: __WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].uniforms,
+    vertexShader: __WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].vs,
+    fragmentShader: __WEBPACK_IMPORTED_MODULE_7__const_lambert__["a" /* default */].fs,
+  });
+  opacityMaterial = new THREE.MeshStandardMaterial({
+    color: '#eafcff',
+    opacity: 0.8,
+    transparent: true,
+    // premultipliedAlpha: true,
   });
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__loader_loadFBXL__["a" /* default */])();
+  console.log('lambert');
 };
 manager.onProgress = (url, itemsLoaded, itemsTotal) => {
   console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files`);
@@ -43967,6 +43968,7 @@ manager.onError = (url) => {
 // LOADER
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__loader_loadVert__["a" /* default */])();
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__["a" /* default */])('woodShader');
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__["a" /* default */])('woodRedShader');
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__["a" /* default */])('metalShader');
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__loader_loadFrag__["a" /* default */])('lambertShader');
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('wood', 'specularMap', 'app/textures/wood_mahogany_Specular.png');
@@ -43974,13 +43976,17 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* d
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('wood', 'roughnessMap', 'app/textures/wood_mahogany_roughness.png');
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('wood', 'normalMap', 'app/textures/wood_mahogany_Normal.png');
 
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('woodRed', 'specularMap', 'app/textures/wood_mahogany_Specular.png');
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('woodRed', 'diffuseMap', 'app/textures/wood_mahoganyRed_Diffuse.png');
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('woodRed', 'roughnessMap', 'app/textures/wood_mahogany_roughness.png');
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('woodRed', 'normalMap', 'app/textures/wood_mahogany_Normal.png');
+
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('metal', 'specularMap', 'app/textures/metal_aluminium_directional_Specular.png');
-// loadTexture('metal', 'diffuseMap', 'app/textures/metal_steel_brushed_Diffuse.png');
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__loader_loadTexture__["a" /* default */])('metal', 'roughnessMap', 'app/textures/metal_aluminium_directional_Roughness.png');
 
 // UPDATE
 function update() {
-  planetransport.children[2].rotation.x += 0.1;
+  planetransport.children[0].rotation.x += 0.1;
 }
 
 // RENDER
@@ -44004,7 +44010,7 @@ render();
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44018,8 +44024,7 @@ const metal = {
     diffuseMap: { type: 't', value: {} },
     roughnessMap: { type: 't', value: {} },
     textureRepeat: { type: 'v2', value: new THREE.Vector2(1, 1) },
-    // cspec: { type: 'v3', value: new THREE.Vector3(1, 1, 1) },
-    // roughness: { type: 'f', value: 0.5 },
+    ambientLight: { type: 'f' },
     frontLight: { type: 'v3', value: new THREE.Vector3() },
     fillLight: { type: 'v3', value: new THREE.Vector3() },
     backLight: { type: 'v3', value: new THREE.Vector3() },
@@ -44033,7 +44038,67 @@ const metal = {
 
 
 /***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const THREE = __webpack_require__(0);
+
+const wood = {
+  vs: null,
+  fs: null,
+  uniforms: {
+    specularMap: { type: 't', value: {} },
+    diffuseMap: { type: 't', value: {} },
+    roughnessMap: { type: 't', value: {} },
+    normalMap: { type: 't', value: {} },
+    normalScale: { type: 'v2', value: new THREE.Vector2(1, 1) },
+    textureRepeat: { type: 'v2', value: new THREE.Vector2(3, 3) },
+    ambientLight: { type: 'f' },
+    frontLight: { type: 'v3', value: new THREE.Vector3() },
+    fillLight: { type: 'v3', value: new THREE.Vector3() },
+    backLight: { type: 'v3', value: new THREE.Vector3() },
+    clight_frontLight: { type: 'v3', value: new THREE.Vector3() },
+    clight_fillLight: { type: 'v3', value: new THREE.Vector3() },
+    clight_backLight: { type: 'v3', value: new THREE.Vector3() },
+  },
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (wood);
+
+
+/***/ }),
 /* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const THREE = __webpack_require__(0);
+
+const woodRed = {
+  vs: null,
+  fs: null,
+  uniforms: {
+    specularMap: { type: 't', value: {} },
+    diffuseMap: { type: 't', value: {} },
+    roughnessMap: { type: 't', value: {} },
+    normalMap: { type: 't', value: {} },
+    normalScale: { type: 'v2', value: new THREE.Vector2(1, 1) },
+    textureRepeat: { type: 'v2', value: new THREE.Vector2(3, 3) },
+    ambientLight: { type: 'f' },
+    frontLight: { type: 'v3', value: new THREE.Vector3() },
+    fillLight: { type: 'v3', value: new THREE.Vector3() },
+    backLight: { type: 'v3', value: new THREE.Vector3() },
+    clight_frontLight: { type: 'v3', value: new THREE.Vector3() },
+    clight_fillLight: { type: 'v3', value: new THREE.Vector3() },
+    clight_backLight: { type: 'v3', value: new THREE.Vector3() },
+  },
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (woodRed);
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44046,6 +44111,7 @@ const lambert = {
     cspec: { type: 'v3', value: new THREE.Vector3(0.4, 0.4, 0.4) },
     cdiff: { type: 'v3', value: new THREE.Vector3(1, 0, 0) },
     roughness: { type: 'f', value: 0.7 },
+    ambientLight: { type: 'f' },
     frontLight: { type: 'v3', value: new THREE.Vector3() },
     fillLight: { type: 'v3', value: new THREE.Vector3() },
     backLight: { type: 'v3', value: new THREE.Vector3() },
@@ -44059,7 +44125,7 @@ const lambert = {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44067,7 +44133,7 @@ const THREE = __webpack_require__(0);
 
 class Camera {
   constructor(x, y, z) {
-    this.camera = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera(75, 300 / 300, 0.1, 100000);
     this.position(x, y, z);
     this.look();
   }
@@ -44083,7 +44149,7 @@ class Camera {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44107,7 +44173,7 @@ class Renderer {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44116,41 +44182,43 @@ class Renderer {
 const THREE = __webpack_require__(0);
 
 window.THREE = THREE;
-__webpack_require__(13);
+__webpack_require__(14);
 
 function control(camera, renderer) {
   const controls = new THREE.OrbitControls(camera, renderer);
   controls.enableDamping = true;
   controls.dampingFactor = 0.25;
   controls.rotateSpeed = 0.35;
+  controls.minDistance = 14;
+  controls.maxDistance = 30;
+  controls.minPolarAngle = Math.PI / 4;
+  controls.maxPolarAngle = Math.PI * (4 / 6);
 }
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = loadFBXL;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_wood__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(1);
 //  IMPORT
-
 
 // REQUIRE
 const THREE = __webpack_require__(0);
 
 window.THREE = THREE;
-__webpack_require__(12);
+__webpack_require__(13);
 
 //  FBXL LOADER
 function loadFBXL() {
   const loader = new THREE.FBXLoader();
-  loader.load('./app/obj/plane.fbx', (object) => {
+  loader.load('./app/obj/plane_def.fbx', (object) => {
     object.traverse((child) => {
       switch (child.name) {
         case 'Object002': // VETRO
-          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["metalMaterial"];
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["opacityMaterial"];
           break;
         case 'Box333':  //ELICA
           child.material = __WEBPACK_IMPORTED_MODULE_0__index__["metalMaterial"];
@@ -44165,7 +44233,7 @@ function loadFBXL() {
           child.material = __WEBPACK_IMPORTED_MODULE_0__index__["metalMaterial"];
           break;
         case 'Object001': // PARTI COLORATE
-          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["lambertMaterial"];
+          child.material = __WEBPACK_IMPORTED_MODULE_0__index__["woodRedMaterial"];
           break;
         case 'Box327': // CORPO PRINCIPALE
           child.material = __WEBPACK_IMPORTED_MODULE_0__index__["woodMaterial"];
@@ -44174,21 +44242,24 @@ function loadFBXL() {
           return false;
       }
     });
+    object.scale.set(0.01, 0.01, 0.01);
     __WEBPACK_IMPORTED_MODULE_0__index__["scene"].add(object);
   });
 }
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = loadFrag;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_metal__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__const_lambert__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_woodRed__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__const_metal__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__const_lambert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__index__ = __webpack_require__(1);
+
 
 
 
@@ -44199,7 +44270,7 @@ const THREE = __webpack_require__(0);
 
 //   FRAGMENT SHADER LOADER
 function loadFrag(file) {
-  const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_3__index__["manager"], file);
+  const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_4__index__["manager"], file);
   loader.load(
     `./app/shaders/${file}.frag`,
     (data) => {
@@ -44207,11 +44278,14 @@ function loadFrag(file) {
         case 'woodShader':
           __WEBPACK_IMPORTED_MODULE_0__const_wood__["a" /* default */].fs = data.toString();
           break;
+        case 'woodRedShader':
+          __WEBPACK_IMPORTED_MODULE_1__const_woodRed__["a" /* default */].fs = data.toString();
+          break;
         case 'metalShader':
-          __WEBPACK_IMPORTED_MODULE_1__const_metal__["a" /* default */].fs = data.toString();
+          __WEBPACK_IMPORTED_MODULE_2__const_metal__["a" /* default */].fs = data.toString();
           break;
         case 'lambertShader':
-          __WEBPACK_IMPORTED_MODULE_2__const_lambert__["a" /* default */].fs = data.toString();
+          __WEBPACK_IMPORTED_MODULE_3__const_lambert__["a" /* default */].fs = data.toString();
           break;
         default:
           return (null);
@@ -44229,14 +44303,16 @@ function loadFrag(file) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = loadTexture;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_metal__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__index__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_woodRed__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__const_metal__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index__ = __webpack_require__(1);
+
 
 
 
@@ -44245,20 +44321,23 @@ const THREE = __webpack_require__(0);
 
 // LOAD TEXTURE
 function loadTexture(material, type, file) {
-  const loader = new THREE.TextureLoader(__WEBPACK_IMPORTED_MODULE_2__index__["manager"]);
+  const loader = new THREE.TextureLoader(__WEBPACK_IMPORTED_MODULE_3__index__["manager"]);
   loader.load(
     file,
     (texture) => {
       texture.minFilter = THREE.LinearMipMapLinearFilter;
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
       texture.offset.set(0, 0);
-      texture.needsUpdate = true;
+      // texture.needsUpdate = true;
       switch (material) {
         case 'wood':
           __WEBPACK_IMPORTED_MODULE_0__const_wood__["a" /* default */].uniforms[type].value = texture;
           break;
+        case 'woodRed':
+          __WEBPACK_IMPORTED_MODULE_1__const_woodRed__["a" /* default */].uniforms[type].value = texture;
+          break;
         case 'metal':
-          __WEBPACK_IMPORTED_MODULE_1__const_metal__["a" /* default */].uniforms[type].value = texture;
+          __WEBPACK_IMPORTED_MODULE_2__const_metal__["a" /* default */].uniforms[type].value = texture;
           break;
         default:
           return false;
@@ -44276,15 +44355,17 @@ function loadTexture(material, type, file) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = loadVert;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_metal__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__const_lambert__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__index__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const_wood__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__const_woodRed__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__const_metal__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__const_lambert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__index__ = __webpack_require__(1);
+
 
 
 
@@ -44296,13 +44377,14 @@ const THREE = __webpack_require__(0);
 
 //  VERTEX SHADERS LOADER
 function loadVert() {
-  const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_3__index__["manager"]);
+  const loader = new THREE.FileLoader(__WEBPACK_IMPORTED_MODULE_4__index__["manager"]);
   loader.load(
     'app/shaders/index.vert',
     (data) => {
       __WEBPACK_IMPORTED_MODULE_0__const_wood__["a" /* default */].vs = data;
-      __WEBPACK_IMPORTED_MODULE_1__const_metal__["a" /* default */].vs = data;
-      __WEBPACK_IMPORTED_MODULE_2__const_lambert__["a" /* default */].vs = data;
+      __WEBPACK_IMPORTED_MODULE_1__const_woodRed__["a" /* default */].vs = data;
+      __WEBPACK_IMPORTED_MODULE_2__const_metal__["a" /* default */].vs = data;
+      __WEBPACK_IMPORTED_MODULE_3__const_lambert__["a" /* default */].vs = data;
     },
     // Function called when download progresses
     (xhr) => {
@@ -44316,7 +44398,7 @@ function loadVert() {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /**
@@ -48374,7 +48456,7 @@ function loadVert() {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /**
